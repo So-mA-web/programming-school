@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<html lang="ja" style="scroll-behavior: smooth;">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>中学生が教えるプログラミング教室</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
+        body {
+            font-family: 'Inter', sans-serif;
+            /* 背景色はそのまま、目に優しいオフホワイト */
+            background-color: #f7f9fc;
+            scroll-behavior: smooth;
+        }
+        
+        /* ★★★ パステルカラーグラデーションに更新 (Lavender to Mint) ★★★ */
+        .text-gradient {
+            background-image: linear-gradient(45deg, #A5B4FC, #83E8D0); /* Soft Lavender to Soft Mint */
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+        .card-hover:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0, 0, 0, 0.1);
+        }
+        .fade-in {
+            animation: fadeIn 1s ease-in-out;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* ハンバーガーメニューのスライドアニメーション */
+        #mobile-menu {
+            transition: transform 0.3s ease-in-out;
+            transform: translateY(-100%);
+        }
+        #mobile-menu.menu-open {
+            transform: translateY(0);
+        }
+
+        /* ヘッダーリンクのハイライトアニメーション */
+        .nav-link-underline {
+            position: relative;
+            display: inline-block;
+            transition: color 0.3s ease;
+        }
+
+        .nav-link-underline::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            /* ★★★ パステルカラーに更新 (Soft Mint) ★★★ */
+            background-color: #83E8D0; 
+            transition: width 0.3s ease;
+        }
+
+        .nav-link-underline:hover {
+            color: #4a5568; /* hover時の文字色を灰色に */
+        }
+
+        .nav-link-underline:hover::after {
+            width: 100%;
+        }
+
+        /* メッセージボックスのスタイル */
+        .message-box {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            padding: 1rem 2rem;
+            border-radius: 9999px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            z-index: 1000;
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s;
+        }
+        .message-box.show {
+            opacity: 1;
+            visibility: visible;
+        }
+
+        /* ヘッダーの高さ分、スクロール位置を調整するCSS */
+        html {
+            scroll-padding-top: 80px; /* Adjust this value to match your header height */
+        }
+        
+        /* ヒーローセクションの背景画像スタイル */
+        .hero-background {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: url(data/shooting.JPG); /* 汎用的な画像URLを使用 */
+            background-size: cover;
+            background-position: center;
+            z-index: 1;
+        }
+        
+        /* Scratch埋め込みのレスポンシブコンテナ */
+        .scratch-embed-container {
+            position: relative;
+            width: 100%;
+            padding-bottom: 75%; /* 4:3のアスペクト比 (480 / 640 = 0.75) */
+            height: 0;
+            overflow: hidden;
+        }
+        .scratch-embed-container iframe {
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+        }
+        
+        /* ★★★ ページ遷移風 詳細ビューのカスタムスタイル ★★★ */
+        #activity-detail-view {
+            /* 画面全体に固定し、新しいページのように見せる */
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            z-index: 500;
+            background-color: #f7f9fc; /* メインページと同じ背景色 */
+            overflow-y: auto; /* 詳細コンテンツが長い場合にスクロール可能にする */
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
+
+            /* スライドイン/アウトのアニメーション設定 */
+            transition: transform 0.4s cubic-bezier(0.25, 0.46, 0.45, 0.94); /* スムーズなアニメーション */
+        }
+
+        /* 初期状態: 右側に完全に隠れている (Tailwindのtranslate-x-fullを使用) */
+        .slide-hidden {
+            transform: translateX(100%);
+        }
+
+        /* 表示状態: 画面内にスライドイン */
+        .slide-visible {
+            transform: translateX(0);
+        }
+
+        /* 詳細コンテンツの内部コンテナの最大幅設定 */
+        .detail-content-wrapper {
+            max-width: 1000px;
+            margin: 0 auto;
+            padding: 2rem 1.5rem;
+        }
+        
+        /* 詳細本文内のHTML要素のスタイル調整 */
+        .article-content strong {
+            font-weight: 700; /* 強調を太字に */
+            /* ★★★ パステルカラーに更新 (Soft Mint) ★★★ */
+            color: #83E8D0; 
+        }
+        .article-content ul {
+            list-style-type: disc;
+            margin-left: 1.5rem;
+            padding-left: 0.5rem;
+        }
+        /* ★追加: float解除用クラス (h3タグなどで使用) */
+        .clear-right {
+            clear: right;
+        }
+        /* ★★★ チラシ拡大モーダルのスタイル ★★★ */
+        .flyer-modal-overlay {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.85); /* 濃い半透明の黒 */
+            z-index: 1000; 
+            display: none; /* 初期状態では非表示 */
+            justify-content: center;
+            align-items: center;
+            opacity: 0;
+            transition: opacity 0.3s ease-in-out;
+        }
+
+        .flyer-modal-overlay.open {
+            display: flex;
+            opacity: 1;
+        }
+
+        .flyer-modal-content {
+            max-width: 90%;
+            max-height: 90%;
+            position: relative;
+        }
+
+        .flyer-modal-content img {
+            width: auto;
+            height: auto;
+            max-width: 100%;
+            max-height: 96vh; /* 画面の高さに合わせる */
+            object-fit: contain;
+            border-radius: 12px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
+            cursor: pointer; /* 閉じるためのクリック可能を示す */
+        }
+        
+    </style>
+</head>
+<body class="bg-gray-100 text-gray-800">
+
+    <!-- Header Section (メインナビゲーション) -->
+    <header class="bg-white shadow-md fixed top-0 left-0 w-full z-50">
+        <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
+            <a href="#" class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">中学生が教えるプログラミング教室</a>
+            <div class="hidden md:flex space-x-6">
+                <!-- リンクの順番を並び替え: About -> Workshop -> Teachers -> Gallery -> News -->
+                <a href="#about" class="text-gray-600 hover:text-gray-400 nav-link-underline transition-colors duration-300">概要</a>
+                <a href="#workshop" class="text-gray-600 hover:text-gray-400 nav-link-underline transition-colors duration-300">キミのやりたいことを見つけよう</a>
+                <a href="#teachers" class="text-gray-600 hover:text-gray-400 nav-link-underline transition-colors duration-300">中学生教師</a>
+                <a href="#gallery" class="text-gray-600 hover:text-gray-400 nav-link-underline transition-colors duration-300">作品例を見てみよう</a>
+                <!-- ★活動記録リンクの追加★ -->
+                <a href="#news" class="text-gray-600 hover:text-gray-400 nav-link-underline transition-colors duration-300">活動記録</a>
+            </div>
+            <div class="md:hidden">
+                <button id="menu-button" class="text-gray-600 focus:outline-none relative">
+                    <i id="bars-icon" class="fas fa-bars text-2xl transition-transform duration-300"></i>
+                    <i id="times-icon" class="fas fa-times text-2xl transition-transform duration-300 hidden"></i>
+                </button>
+            </div>
+        </nav>
+        <div id="mobile-menu" class="fixed top-0 left-0 w-full h-full bg-white z-40 transform -translate-y-full transition-transform duration-300 ease-in-out pt-16">
+            <div class="flex flex-col items-center py-8">
+                <!-- リンクの順番を並び替え: About -> Workshop -> Teachers -> Gallery -> News -->
+                <a href="#about" class="block px-6 py-4 text-gray-800 text-2xl font-bold hover:bg-gray-100 transition duration-300 w-full text-center">概要</a>
+                <a href="#workshop" class="block px-6 py-4 text-gray-800 text-2xl font-bold hover:bg-gray-100 transition duration-300 w-full text-center">キミのやりたいことを見つけよう</a>
+                <a href="#teachers" class="block px-6 py-4 text-gray-800 text-2xl font-bold hover:bg-gray-100 transition duration-300 w-full text-center">中学生教師</a>
+                <a href="#gallery" class="block px-6 py-4 text-gray-800 text-2xl font-bold hover:bg-gray-100 transition duration-300 w-full text-center">作品例を見てみよう</a>
+                <!-- ★活動記録リンクの追加★ -->
+                <a href="#news" class="block px-6 py-4 text-gray-800 text-2xl font-bold hover:bg-gray-100 transition duration-300 w-full text-center">活動記録</a>
+            </div>
+        </div>
+    </header>
+
+    <main class="pt-16">
+        <!-- Hero Section - 静的な背景画像に変更 -->
+        <section id="hero-section" class="relative min-h-screen px-6 flex flex-col items-center justify-center text-center text-gray-800">
+            <!-- 背景画像用レイヤー -->
+            <div class="hero-background"></div>
+
+            <!-- ヒーローセクションのテキスト部分 -->
+            <div class="relative container mx-auto z-20 text-white p-6 rounded-xl bg-black bg-opacity-30">
+                <h1 class="text-4xl md:text-5xl lg:text-7xl font-extrabold leading-tight mb-4 fade-in">
+                    <span class="text-gradient">中学生が教える</span><br class="md:hidden">プログラミング教室
+                </h1>
+                <p class="text-xl md:text-2xl mt-6 max-w-2xl mx-auto fade-in" style="animation-delay: 0.2s;">
+                    やりたいことがきっと見つかる！<br>Micro:bit、Scratch、Web開発など、何に挑戦するかはキミ次第！
+                </p>
+            </div>
+        </section>
+
+        <!-- About Section (2. 概要) -->
+        <section id="about" class="py-20 px-6">
+            <div class="container mx-auto">
+                <h2 class="text-4xl font-bold text-center text-gray-900 mb-12 fade-in">概要</h2>
+                <div class="md:flex md:space-x-12 items-center">
+                    <div class="md:w-1/2 mb-8 md:mb-0 fade-in">
+                        <img src="data/program.png" alt="教室の様子" class="rounded-xl shadow-lg w-full h-auto">
+                    </div>
+                    <div class="md:w-1/2 fade-in">
+                        <p class="text-lg text-gray-700 mb-4">
+                            このプログラミング教室は、「やりたいこと」を自由に深める教室です。決まったコースやカリキュラムはありません。あなたが興味を持ったツールや言語を、中学生講師がサポートします。
+                        </p>
+                        <!-- text-gradientはそのままパステルグラデーションを使用 -->
+                        <p class="text-lg text-gray-700 mb-4 font-bold text-gradient">
+                            小中学生の「プログラミングって何だろう？」という初心者から、<br>「特定の作品を作りたい！」という経験者まで歓迎します。
+                        </p>
+                        <ul class="space-y-4 text-gray-600">
+                            <!-- ★★★ パステルカラーアイコンに更新 (Soft Mint) ★★★ -->
+                            <li class="flex items-center"><i class="fas fa-check-circle text-[#83E8D0] mr-2"></i> 中学生講師がサポート</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle text-[#83E8D0] mr-2"></i> 事前の知識は一切不要！</li>
+                            <li class="flex items-center"><i class="fas fa-check-circle text-[#83E8D0] mr-2"></i> 必要な道具（PC・Micro:bitなど）はすべてこちらで用意可能<br>持ち込みも大歓迎</li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Workshop Content Section (3. 内容) -->
+        <section id="workshop" class="py-20 px-6 bg-gray-50">
+            <div class="container mx-auto">
+                <h2 class="text-4xl font-bold text-center text-gray-900 mb-12 fade-in">キミのやりたいことを見つけよう</h2>
+                <div class="text-center text-xl text-gray-700 mb-10 max-w-3xl mx-auto fade-in">
+                    当日は以下のツールや言語から、あなたが興味のあるものを自由に選んで<br>制作に取り組みます。<br>何を選べばいいか分からなくても、講師が相談に乗りますので<br>ご安心ください！
+                </div>
+                <div class="grid md:grid-cols-4 gap-6 max-w-5xl mx-auto">
+                    <!-- Option 1: Micro:bit -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 text-center card-hover transition duration-300 fade-in">
+                        <!-- ★★★ パステルカラーアイコンに更新 (Soft Mint) ★★★ -->
+                        <i class="fas fa-microchip text-5xl text-[#83E8D0] mb-3"></i>
+                        <h3 class="text-xl font-bold text-gray-900 mb-1">Micro:bit</h3>
+                        <p class="text-sm text-gray-600">センサーやLEDを使った<br>電子工作</p>
+                    </div>
+                    <!-- Option 2: Scratch -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 text-center card-hover transition duration-300 fade-in" style="animation-delay: 0.1s;">
+                        <!-- ★★★ パステルカラーアイコンに更新 (Soft Mint) ★★★ -->
+                        <i class="fas fa-cubes text-5xl text-[#83E8D0] mb-3"></i>
+                        <h3 class="text-xl font-bold text-gray-900 mb-1">Scratch</h3>
+                        <p class="text-sm text-gray-600">ブロックを繋いで<br>ゲームやアニメ制作</p>
+                    </div>
+                    <!-- Option 3: HTML/CSS -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 text-center card-hover transition duration-300 fade-in" style="animation-delay: 0.2s;">
+                        <!-- ★★★ パステルカラーアイコンに更新 (Soft Mint) ★★★ -->
+                        <i class="fas fa-file-code text-5xl text-[#83E8D0] mb-3"></i>
+                        <h3 class="text-xl font-bold text-gray-900 mb-1">Web開発</h3>
+                        <p class="text-sm text-gray-600">HTML/CSSでオリジナル<br>Webサイト作成</p>
+                    </div>
+                    <!-- Option 4: Free Choice -->
+                    <div class="bg-white rounded-xl shadow-lg p-6 text-center card-hover transition duration-300 fade-in" style="animation-delay: 0.3s;">
+                        <!-- ★★★ パステルカラーアイコンに更新 (Soft Mint) ★★★ -->
+                        <i class="fas fa-brain text-5xl text-[#83E8D0] mb-3"></i>
+                        <h3 class="text-xl font-bold text-gray-900 mb-1">その他</h3>
+                        <p class="text-sm text-gray-600">Pythonの基礎など<br>相談に応じます！</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Teacher Section (4. 講師) -->
+        <section id="teachers" class="py-20 px-6">
+            <div class="container mx-auto">
+                <h2 class="text-4xl font-bold text-center text-gray-900 mb-12 fade-in">中学生教師</h2>
+                <div class="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center md:items-start space-y-6 md:space-y-0 p-8 bg-white rounded-xl shadow-lg">
+                    <div class="flex flex-col items-center md:items-start md:w-1/2 space-y-4 pr-0 md:pr-8 border-b md:border-b-0 md:border-r border-gray-200 pb-6 md:pb-0">
+                        <img src="data/icon.png" alt="So-㎃" class="w-36 h-36 rounded-full object-cover shrink-0">
+                        <div class="text-center md:text-left">
+                            <h3 class="text-3xl font-bold text-gray-900 mb-1">So-㎃（そーま）</h3>
+                            <!-- ★★★ パステルカラーに更新 (Soft Mint) ★★★ -->
+                            <p class="text-lg text-[#83E8D0] mb-4">中学生講師</p>
+                            <p class="text-gray-600">
+                                SO-MA（そーま）。中学３年生。プログラミングが好きで、独学で学ぶ。小学５年生のときに担任の先生に勧められ初めて応募した大会で、奨励賞を受賞したことから、いろんなコンテストに応募するようになった。人と話すことは得意ではないが、教えるのは好き。<br>好きなもの：オンゲキ・東方プロジェクト・藍染・ピアノ。
+                            </p>
+                        </div>
+                    </div>
+                    <div class="md:w-1/2 md:pl-8 text-center md:text-left">
+                        <h4 class="text-xl font-bold text-gray-800 mb-4">受賞履歴</h4>
+                        <ul class="list-disc list-inside space-y-2 text-gray-600">
+                            <li>徳島県高等教育機関連携型「ジュニアドクター発掘・養成講座」修了</li>
+                            <li>第2回プログラミングスタジアム「プロスタ大賞（夏休み研究部門）」</li>
+                            <li>とくしまキッズプログラミングコンテスト2022「最優秀賞」</li>
+                            <li>U-16プログラミングコンテスト阿南大会 第3回阿南大会小学生競技部門「優勝 (BCN ITジュニア U-16賞 2023)」</li>
+                            <li>徳島県小学生プログラミング大会2022「準グランプリ」</li>
+                            <li>第2回デジタルとくしま大賞「e-とくしま推進財団賞（小学生部門賞）」</li>
+                            <li>第3回デジタルとくしま大賞「e-とくしま推進財団賞（学生部門賞）」</li>
+                        </ul>
+                        <br>
+                        <h4 class="text-xl font-bold text-gray-800 mb-4">資格</h4>
+                        <ul class="list-disc list-inside space-y-2 text-gray-600">
+                            <li>ITパスポート（国家資格）</li>
+                            
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- Gallery Section (5. 作品例) -->
+        <section id="gallery" class="py-20 px-6 bg-gray-100">
+            <div class="container mx-auto">
+                <h2 class="text-4xl font-bold text-center text-gray-900 mb-12 fade-in">作品例を見てみよう</h2>
+                
+                <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-6 mb-12 fade-in">
+                    <h3 class="text-2xl font-bold text-gray-900 mb-4 border-b pb-2">Scratch 作品例：シューティングゲーム</h3>
+                    <div class="scratch-embed-container rounded-lg overflow-hidden border-2 border-gray-200">
+                        <!-- ScratchプロジェクトID: 1203211243 を埋め込み -->
+                        <iframe src="https://scratch.mit.edu/projects/1203211243/embed" 
+                                allowtransparency="true" 
+                                width="485" height="402" 
+                                frameborder="0" 
+                                scrolling="no" 
+                                allowfullscreen 
+                                loading="lazy"
+                                onerror="this.onerror=null; this.src='https://placehold.co/485x402/eeeeee/333333?text=Scratch+Project+Loading...'">
+                        </iframe>
+                    </div>
+                    <p class="text-center text-gray-600 mt-4 text-sm">※埋め込み作品ID: 1203211243</p>
+                    <!-- text-gradientはそのままパステルグラデーションを使用 -->
+                    <p class="text-center text-gray-700 mt-2 font-bold text-gradient">当日、あなたのアイデアを形にするお手伝いをします！</p>
+                    
+                    <!-- ★★★ チラシ画像の挿入開始 - 画像パスを更新 ★★★ -->
+                    <div class="mt-12 pt-6 border-t border-gray-200 text-center">
+                        <h3 class="text-2xl font-bold text-gray-900 mb-6">教室のチラシはこちら！</h3>
+                        <!-- 画像クリックでopenFlyerModal関数を呼び出す -->
+                        <img id="flyer-image" src="data/中学生が教える_v3.0.png" alt="プログラミング教室のチラシ" 
+                             class="w-full h-auto max-w-xl mx-auto rounded-lg shadow-2xl border-4 border-white transition duration-500 hover:scale-[1.02] cursor-pointer"
+                             onclick="openFlyerModal('data/中学生が教える_v3.0.png')"
+                             onerror="this.onerror=null; this.src='https://placehold.co/600x800/eeeeee/333333?text=FLYER+IMAGE+HERE';">
+                        <p class="text-center text-gray-600 mt-4 text-sm">
+                            ※画像をクリックすると拡大表示（クリックで閉じます）
+                        </p>
+                    </div>
+                    <!-- ★★★ チラシ画像の挿入終了 ★★★ -->
+
+                </div>
+
+            </div>
+        </section>
+        
+        <!-- Activity Log Section (6. 活動記録) -->
+        <section id="news" class="py-20 px-6">
+            <div class="container mx-auto">
+                <h2 class="text-4xl font-bold text-center text-gray-900 mb-12 fade-in">活動記録</h2>
+                
+                <!-- JavaScriptによってコンテンツが挿入されるコンテナ -->
+                <div id="activity-log-container" class="max-w-4xl mx-auto space-y-6">
+                    <p class="text-center text-gray-500">活動記録を読み込み中です...</p>
+                </div>
+            </div>
+        </section>
+        
+        <!-- ★★★ ページ遷移風 詳細ビュー (固定画面) ★★★ -->
+        <div id="activity-detail-view" class="slide-hidden">
+            <div class="detail-content-wrapper">
+                
+                <!-- 戻るボタン（ヘッダー代わり） -->
+                <header class="bg-transparent py-4 sticky top-0 bg-gray-100 z-10 shadow-sm mb-6 -mx-6 px-6">
+                    <button onclick="closeActivityDetail()" class="text-gray-800 hover:text-[#A5B4FC] transition font-semibold flex items-center">
+                        <i class="fas fa-chevron-left mr-2"></i> メインページに戻る
+                    </button>
+                </header>
+                
+                <!-- 詳細コンテンツ本体 -->
+                <div class="bg-white p-6 md:p-10 rounded-xl shadow-lg">
+                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6">
+                        <div class="flex items-center space-x-4 mb-2 sm:mb-0">
+                            <!-- カテゴリと日付 -->
+                            <span id="detail-category" class="text-sm font-semibold text-white px-3 py-1 rounded-full"></span>
+                            <span id="detail-date" class="text-sm text-gray-500"></span>
+                        </div>
+                    </div>
+                    <!-- タイトル -->
+                    <h2 id="detail-title" class="text-4xl font-extrabold text-gray-900 mb-8 border-b pb-4"></h2>
+                    <!-- ★★★ ここにHTMLとして本文を挿入する ★★★ -->
+                    <div id="detail-content" class="article-content text-lg text-gray-700 space-y-6 leading-relaxed">
+                        <!-- 詳細な本文（HTML形式）がここに挿入されます -->
+                    </div>
+                    <!-- ★★★ 挿入エリア ここまで ★★★ -->
+                </div>
+
+                <div class="mt-12 text-center">
+                    <!-- ★★★ パステルカラーボタンに更新 (Soft Mint, text-gray-800で高コントラスト) ★★★ -->
+                    <button onclick="closeActivityDetail()" class="bg-[#83E8D0] text-gray-800 font-bold py-3 px-8 rounded-full hover:bg-[#A5B4FC] transition duration-300 shadow-xl text-lg">
+                        メインページに戻る
+                    </button>
+                </div>
+            </div>
+        </div>
+        <!-- ★★★ ページ遷移風 詳細ビュー ここまで ★★★ -->
+
+    </main>
+    
+    <!-- ★★★ チラシ拡大表示モーダル (Footerの直前に追加) ★★★ -->
+    <!-- オーバーレイ全体をクリックすると closeFlyerModal が実行される -->
+    <div id="flyer-modal" class="flyer-modal-overlay" onclick="closeFlyerModal()">
+        <div class="flyer-modal-content">
+            <!-- 画像自体をクリックしてもモーダルが閉じないように event.stopPropagation() を追加 -->
+            <img id="modal-flyer-image" src="" alt="プログラミング教室のチラシ - 拡大" onclick="event.stopPropagation()">
+        </div>
+    </div>
+    <!-- ★★★ モーダルここまで ★★★ -->
+
+
+    <!-- Footer Section -->
+    <footer class="bg-gray-800 text-white py-8 px-6">
+        <div class="container mx-auto text-center">
+            <p>&copy; 2025 中学生が教えるプログラミング教室 All rights reserved.</p>
+            <p class="mt-2">主催: 学研福島とまり木教室</p>
+            <p class="mt-1">TEL: XXX-XXX-XXXX</p>
+            <p>【参加費】1時間1000円（応相談：学研福島とまり木教室会員は割引あり）</p>
+        </div>
+    </footer>
+
+    <!-- メッセージボックス -->
+    <div id="message-box" class="message-box bg-green-500 text-white"></div>
+    <div id="error-box" class="message-box bg-red-500 text-white"></div>
+
+    <script type="module">
+        // --- 1. 活動記録データ (activityData) ---
+        // ★★★ カテゴリカラーをパステルカラーで複数色に変更 (カラフル化) ★★★
+        const activityData = [
+            {
+                date: "2025年X月X日",
+                category: "お知らせ",
+                categoryColor: "bg-[#AEC6CF]", // Light Blue
+                title: "「中学生が教えるプログラミング教室」Webサイト公開",
+                summary: "中学生が教えるプログラミング教室の公式Webサイトが公開されました。",
+                content: `
+                    <p>
+                        「中学生が教えるプログラミング教室」の公式Webサイトが公開されました！
+                    </p>
+                    <p>
+                        このサイトでは、教室の**概要**や**中学生講師の紹介**、**過去の活動記録**などを掲載しています。
+                        この教室は、プログラミング教育に情熱を持つ中学生講師So-㎃によって立ち上げられました。
+                    </p>
+                    <p>
+                        子どもたちの「やってみたい」という意欲を大切にし、決まったカリキュラムではなく、**一人ひとりの興味**に応じた自由な制作をサポートしていきます。
+                        ぜひ、サイトをご覧いただき、教室へのご参加を検討ください。
+                    </p>
+                    <p>
+                        今後も活動記録を随時更新していきますので、ご期待ください！
+                    </p>
+                `
+            },
+            {
+                date: "2025年8月5日",
+                category: "イベント",
+                categoryColor: "bg-[#FFC7A4]", // Peach
+                title: "第1回プログラミング教室開催",
+                summary: "第1回目のプログラミング教室をデイサービス「だいすきなしろいくつ」さんで開催しました。",
+                // ★HTMLを含むコンテンツを更新 - 縦長画像を右にフロート★
+                content: `
+                    <!-- ★★★ 挿入する縦長画像 (右寄せ) ★★★ -->
+                    <!-- md:float-rightで右に寄せ、md:w-64で幅を固定。md:ml-6で左側にマージンを作成。 -->
+                    <div class="my-8 text-center md:my-4 md:ml-6 md:w-64 md:float-right md:mb-6">
+                        <img src="data/img/shooting_1_16.JPG" 
+                             alt="第1回プログラミング教室の様子"
+                             class="rounded-xl shadow-lg w-full max-w-xs mx-auto md:max-w-none md:mx-0 cursor-pointer transition hover:opacity-90"
+                             onclick="openFlyerModal('https://placehold.co/600x900/c1e4e9/333333?text=CLASS+PHOTO+(Expanded)')">
+                        <p class="text-sm text-gray-500 mt-2">教室での制作風景</p>
+                    </div>
+                    <!-- ★★★ 画像ここまで ★★★ -->
+
+                    <p>
+                        2025年8月5日、デイサービス<strong>「だいすきなしろいくつ」</strong>さんのご協力をいただき、記念すべき第1回目のプログラミング教室を開催することができました！
+                        参加してくれた子どもたち、保護者の皆様、そして会場を提供してくださった「だいすきなしろいくつ」様に心より感謝申し上げます。
+                    </p>
+
+                    <p>
+                        子どもたちは、事前の相談して決めた内容に挑戦しました。
+                    </p>
+                    <p>
+                        今回は初めての開催でしたが、子供たちが楽しそうにプログラミングをできていてよかったです。
+                    </p>
+                    <!-- floatを解除するため、h3にclear-rightを適用 -->
+                    <h3 class="text-2xl font-bold text-gray-900 mt-8 mb-4 border-b pb-2">体験した内容</h3>
+                    <ul class="list-disc list-inside ml-4 space-y-2">
+                        <li><strong>Scratch:</strong> ブロックを組み合わせてオリジナルのシューティングゲームを作成。</li>
+                    </ul>
+                    
+                    <p>
+                        参加者からは「自分でもできた！」「おもしろかった！」という嬉しい声をたくさんいただきました。
+                        今後も、子どもたちが<strong>自由に創造性を発揮できる</strong>場を提供できるよう、活動していきたいと思います！
+                    </p>
+                `
+            }
+        ];
+        
+        // --- 2. 活動記録のHTML生成と描画 (renderActivityLog) ---
+        function renderActivityLog() {
+            const container = document.getElementById('activity-log-container');
+            if (!container) return; 
+
+            let htmlContent = '';
+            
+            activityData.forEach((item, index) => {
+                const delay = index * 0.1; 
+                
+                htmlContent += `
+                    <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 card-hover fade-in" style="animation-delay: ${delay}s;">
+                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center">
+                            <span class="text-sm font-semibold text-white ${item.categoryColor} px-3 py-1 rounded-full mb-2 sm:mb-0">${item.category}</span>
+                            <span class="text-sm text-gray-500">${item.date}</span>
+                        </div>
+                        <h3 class="text-xl font-bold text-gray-900 mt-2 mb-1">${item.title}</h3>
+                        <p class="text-gray-700">${item.summary}</p>
+                        <!-- ★★★ パステルカラーリンクに更新 (Lavender to Mint) ★★★ -->
+                        <a href="#" onclick="showActivityDetail(${index}); return false;" class="text-[#A5B4FC] hover:text-[#83E8D0] text-sm mt-2 inline-block font-semibold">詳細を見る &rarr;</a>
+                    </div>
+                `;
+            });
+
+            container.innerHTML = htmlContent;
+        }
+        
+        // --- 3. 詳細ビュー表示関数 (スライドイン) ---
+        window.showActivityDetail = function(index) {
+            const data = activityData[index];
+            if (!data) return;
+
+            const view = document.getElementById('activity-detail-view');
+            const detailCategory = document.getElementById('detail-category');
+            const detailDate = document.getElementById('detail-date');
+            const detailTitle = document.getElementById('detail-title');
+            const detailContent = document.getElementById('detail-content');
+
+            detailCategory.textContent = data.category;
+            detailCategory.className = `text-sm font-semibold text-white px-3 py-1 rounded-full ${data.categoryColor}`;
+            
+            detailDate.textContent = data.date;
+            detailTitle.textContent = data.title;
+            
+            // ★変更点: innerHTMLを使ってHTMLとして本文を挿入 ★
+            detailContent.innerHTML = data.content; 
+
+            // 詳細ビューをスライドイン
+            view.classList.remove('slide-hidden');
+            view.classList.add('slide-visible');
+
+            // メインコンテンツのスクロールを無効にする
+            document.body.style.overflow = 'hidden';
+
+            // 詳細ビューを一番上までスクロール
+            view.scrollTop = 0;
+        }
+
+        // --- 4. 詳細ビュー非表示関数 (スライドアウト) ---
+        window.closeActivityDetail = function() {
+            const view = document.getElementById('activity-detail-view');
+            
+            view.classList.remove('slide-visible');
+            view.classList.add('slide-hidden');
+            
+            setTimeout(() => {
+                document.body.style.overflow = '';
+                document.getElementById('news').scrollIntoView({ behavior: 'smooth' });
+            }, 400); 
+        }
+
+        // --- 5. チラシ拡大モーダル機能 ---
+        
+        const flyerModal = document.getElementById('flyer-modal');
+        const modalFlyerImage = document.getElementById('modal-flyer-image');
+
+        window.openFlyerModal = function(imageSrc) {
+            modalFlyerImage.src = imageSrc;
+            flyerModal.classList.add('open');
+            document.body.style.overflow = 'hidden'; // 背景のスクロールを無効
+        };
+
+        window.closeFlyerModal = function() {
+            flyerModal.classList.remove('open');
+            document.body.style.overflow = ''; // 背景のスクロールを有効に戻す
+        };
+
+        // Escキーで閉じる処理
+        document.addEventListener('keydown', function(event) {
+            if (event.key === 'Escape') {
+                closeFlyerModal();
+            }
+        });
+        
+        // メッセージボックス関数は維持
+        function showMessage(message, type = 'success') {
+            const box = type === 'success' ? document.getElementById('message-box') : document.getElementById('error-box');
+            box.textContent = message;
+            box.classList.add('show');
+            setTimeout(() => {
+                box.classList.remove('show');
+            }, 3000);
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const menuButton = document.getElementById('menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const barsIcon = document.getElementById('bars-icon');
+            const timesIcon = document.getElementById('times-icon');
+
+            // 活動記録をレンダリング
+            renderActivityLog();
+            
+            // Mobile menu toggle
+            menuButton.addEventListener('click', function() {
+                mobileMenu.classList.toggle('menu-open');
+                barsIcon.classList.toggle('hidden');
+                timesIcon.classList.toggle('hidden');
+            });
+
+            // Close menu when a link is clicked
+            document.querySelectorAll('#mobile-menu a').forEach(link => {
+                link.addEventListener('click', function() {
+                    mobileMenu.classList.remove('menu-open');
+                    barsIcon.classList.remove('hidden');
+                    timesIcon.classList.add('hidden');
+                });
+            });
+        });
+    </script>
+</body>
+</html>
