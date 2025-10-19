@@ -10,11 +10,14 @@
         @import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700&display=swap');
         body {
             font-family: 'Inter', sans-serif;
+            /* 背景色はそのまま、目に優しいオフホワイト */
             background-color: #f7f9fc;
             scroll-behavior: smooth;
         }
+        
+        /* ★★★ パステルカラーグラデーションに更新 (Lavender to Mint) ★★★ */
         .text-gradient {
-            background-image: linear-gradient(45deg, #A5B4FC, #83E8D0);
+            background-image: linear-gradient(45deg, #A5B4FC, #83E8D0); /* Soft Lavender to Soft Mint */
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
@@ -25,14 +28,13 @@
         }
         .fade-in {
             animation: fadeIn 1s ease-in-out;
-            /* 常にフェードインが適用されるように調整 */
-            opacity: 0;
-            animation-fill-mode: forwards;
         }
         @keyframes fadeIn {
             from { opacity: 0; transform: translateY(20px); }
             to { opacity: 1; transform: translateY(0); }
         }
+
+        /* ハンバーガーメニューのスライドアニメーション */
         #mobile-menu {
             transition: transform 0.3s ease-in-out;
             transform: translateY(-100%);
@@ -41,6 +43,7 @@
             transform: translateY(0);
         }
 
+        /* ヘッダーリンクのハイライトアニメーション */
         .nav-link-underline {
             position: relative;
             display: inline-block;
@@ -54,12 +57,13 @@
             height: 2px;
             bottom: -5px;
             left: 0;
+            /* ★★★ パステルカラーに更新 (Soft Mint) ★★★ */
             background-color: #83E8D0; 
             transition: width 0.3s ease;
         }
 
         .nav-link-underline:hover {
-            color: #4a5568;
+            color: #4a5568; /* hover時の文字色を灰色に */
         }
 
         .nav-link-underline:hover::after {
@@ -97,7 +101,7 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background-image: url(data/shooting.JPG); /* 汎用的な画像URLを使用 */
+            background-image: url(shooting.JPG); /* 汎用的な画像URLを使用 */
             background-size: cover;
             background-position: center;
             z-index: 1;
@@ -157,7 +161,13 @@
         .article-content strong {
             font-weight: 700; /* 強調を太字に */
             /* ★★★ パステルカラーに更新 (Soft Mint) ★★★ */
-            color: #83E8D0; 
+            color: #83E8D0;
+        }
+        .article-content black {
+            font-weight: 700; /* 強調を太字に */
+            /* ★★★ パステルカラーに更新 (Soft Mint) ★★★ */
+            background-color: #000000;
+            color: #ffffff;
         }
         .article-content ul {
             list-style-type: disc;
@@ -206,82 +216,6 @@
             cursor: pointer; /* 閉じるためのクリック可能を示す */
         }
         
-        /* --- ★★★ 吹き出しデザインのカスタムCSS追加 ★★★ --- */
-        
-        /* 吹き出しのベーススタイル */
-        .speech-bubble {
-            position: relative;
-            border-radius: 1rem;
-            padding: 1rem;
-            box-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.1), 0 2px 4px -2px rgba(0, 0, 0, 0.1);
-            min-height: 100px; /* 見栄えを良くするため */
-        }
-
-        /* 先生（緑）の吹き出し - アイコンが右にあるパターン (今回は使用しないがCSSは残す) */
-        .bubble-teacher {
-            background-color: #D1FAE5; /* Light Mint */
-            border: 2px solid #34D399; /* Mint Green Border */
-        }
-        .bubble-teacher::after, .bubble-teacher::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            right: -14px; /* 右側に出す */
-            border: 7px solid transparent;
-            border-left: 7px solid #34D399; /* 枠の色 */
-            transform: translateY(-50%);
-        }
-        .bubble-teacher::after {
-            /* 内側の色を背景色に合わせる */
-            right: -10px; 
-            border-left: 7px solid #D1FAE5;
-            z-index: 10;
-        }
-
-        /* 保護者（白/黄）の吹き出し - アイコンが左にあるパターン */
-        .bubble-parent {
-            background-color: #FFFBEB; /* Light Yellow (Like a sticky note) */
-            border: 2px solid #FCD34D; /* Amber Border */
-        }
-        .bubble-parent::after, .bubble-parent::before {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: -14px; /* 左側に出す */
-            border: 7px solid transparent;
-            border-right: 7px solid #FCD34D; /* 枠の色 */
-            transform: translateY(-50%);
-        }
-        .bubble-parent::after {
-            /* 内側の色を背景色に合わせる */
-            left: -10px; 
-            border-right: 7px solid #FFFBEB;
-            z-index: 10;
-        }
-        
-        /* アイコンと吹き出しの配置調整 */
-        .bubble-wrapper {
-            display: flex;
-            align-items: flex-start;
-        }
-        /* 受講生・保護者のコメントは全て左側寄せ */
-        .bubble-wrapper.parent-side {
-            flex-direction: row; /* アイコン -> 吹き出し */
-        }
-        /* 先生のコメント (今回削除したが残す) */
-        .bubble-wrapper.teacher-side {
-            flex-direction: row-reverse; /* 吹き出し <- アイコン */
-        }
-        .bubble-wrapper .speech-bubble {
-            flex-grow: 1;
-        }
-        .bubble-wrapper.parent-side .speech-bubble {
-            margin-left: 1rem;
-        }
-        .bubble-wrapper.teacher-side .speech-bubble {
-            margin-right: 1rem;
-        }
-
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
@@ -291,12 +225,12 @@
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">中学生が教えるプログラミング教室</a>
             <div class="hidden md:flex space-x-6">
-                <!-- ナビゲーションを更新: 受講生の声へのリンクを維持 -->
+                <!-- リンクの順番を並び替え: About -> Workshop -> Teachers -> Gallery -> News -->
                 <a href="#about" class="text-gray-600 hover:text-gray-400 nav-link-underline transition-colors duration-300">概要</a>
                 <a href="#workshop" class="text-gray-600 hover:text-gray-400 nav-link-underline transition-colors duration-300">キミのやりたいことを見つけよう</a>
                 <a href="#teachers" class="text-gray-600 hover:text-gray-400 nav-link-underline transition-colors duration-300">中学生教師</a>
-                <a href="#testimonials" class="text-gray-600 hover:text-gray-400 nav-link-underline transition-colors duration-300">受講生の声</a>
                 <a href="#gallery" class="text-gray-600 hover:text-gray-400 nav-link-underline transition-colors duration-300">作品例を見てみよう</a>
+                <!-- ★活動記録リンクの追加★ -->
                 <a href="#news" class="text-gray-600 hover:text-gray-400 nav-link-underline transition-colors duration-300">活動記録</a>
             </div>
             <div class="md:hidden">
@@ -308,12 +242,12 @@
         </nav>
         <div id="mobile-menu" class="fixed top-0 left-0 w-full h-full bg-white z-40 transform -translate-y-full transition-transform duration-300 ease-in-out pt-16">
             <div class="flex flex-col items-center py-8">
-                <!-- モバイルナビゲーションを更新: 受講生の声へのリンクを維持 -->
+                <!-- リンクの順番を並び替え: About -> Workshop -> Teachers -> Gallery -> News -->
                 <a href="#about" class="block px-6 py-4 text-gray-800 text-2xl font-bold hover:bg-gray-100 transition duration-300 w-full text-center">概要</a>
                 <a href="#workshop" class="block px-6 py-4 text-gray-800 text-2xl font-bold hover:bg-gray-100 transition duration-300 w-full text-center">キミのやりたいことを見つけよう</a>
                 <a href="#teachers" class="block px-6 py-4 text-gray-800 text-2xl font-bold hover:bg-gray-100 transition duration-300 w-full text-center">中学生教師</a>
-                <a href="#testimonials" class="block px-6 py-4 text-gray-800 text-2xl font-bold hover:bg-gray-100 transition duration-300 w-full text-center">受講生の声</a>
                 <a href="#gallery" class="block px-6 py-4 text-gray-800 text-2xl font-bold hover:bg-gray-100 transition duration-300 w-full text-center">作品例を見てみよう</a>
+                <!-- ★活動記録リンクの追加★ -->
                 <a href="#news" class="block px-6 py-4 text-gray-800 text-2xl font-bold hover:bg-gray-100 transition duration-300 w-full text-center">活動記録</a>
             </div>
         </div>
@@ -342,7 +276,7 @@
                 <h2 class="text-4xl font-bold text-center text-gray-900 mb-12 fade-in">概要</h2>
                 <div class="md:flex md:space-x-12 items-center">
                     <div class="md:w-1/2 mb-8 md:mb-0 fade-in">
-                        <img src="data/program.png" alt="教室の様子" class="rounded-xl shadow-lg w-full h-auto">
+                        <img src="program.png" alt="教室の様子" class="rounded-xl shadow-lg w-full h-auto">
                     </div>
                     <div class="md:w-1/2 fade-in">
                         <p class="text-lg text-gray-700 mb-4">
@@ -409,7 +343,7 @@
                 <h2 class="text-4xl font-bold text-center text-gray-900 mb-12 fade-in">中学生教師</h2>
                 <div class="max-w-4xl mx-auto flex flex-col md:flex-row justify-between items-center md:items-start space-y-6 md:space-y-0 p-8 bg-white rounded-xl shadow-lg">
                     <div class="flex flex-col items-center md:items-start md:w-1/2 space-y-4 pr-0 md:pr-8 border-b md:border-b-0 md:border-r border-gray-200 pb-6 md:pb-0">
-                        <img src="data/icon.png" alt="So-㎃" class="w-36 h-36 rounded-full object-cover shrink-0">
+                        <img src="icon.png" alt="So-㎃" class="w-36 h-36 rounded-full object-cover shrink-0">
                         <div class="text-center md:text-left">
                             <h3 class="text-3xl font-bold text-gray-900 mb-1">So-㎃（そーま）</h3>
                             <!-- ★★★ パステルカラーに更新 (Soft Mint) ★★★ -->
@@ -441,63 +375,8 @@
             </div>
         </section>
 
-        <!-- ★★★ Testimonials Section (受講生の声) の修正: 先生のコメントを削除 ★★★ -->
-        <section id="testimonials" class="py-20 px-6 bg-gray-50">
-            <div class="container mx-auto">
-                <h2 class="text-4xl font-bold text-center text-gray-900 mb-12 fade-in">受講生の声 -アンケートより-</h2>
-                
-                <div class="max-w-4xl mx-auto space-y-8">
-
-                    <!-- 受講生の声 1 (左: 保護者) -->
-                    <div class="bubble-wrapper parent-side fade-in">
-                        <div class="flex flex-col items-center">
-                            <i class="fas fa-child text-5xl text-[#FCD34D] mb-2"></i>
-                            <span class="text-sm font-semibold text-gray-700">保護者さま</span>
-                        </div>
-                        <div class="speech-bubble bubble-parent">
-                            <p class="text-gray-800 font-medium">
-                                はじめて学習の習いごとをしまして、順調に運ぶか不安でしたが、本人も楽しく学習できており、通わせてよかったと思っています。学習終わりには先生にお話ししたり、水槽を見せてもらったりと、楽しそうに帰ってきます。
-                            </p>
-                            <p class="text-xs text-gray-500 mt-2 text-right">（保護者さま）</p>
-                        </div>
-                    </div>
-                    
-                    <!-- 受講生の声 2 (左: 受講生・小学生) -->
-                    <div class="bubble-wrapper parent-side fade-in" style="animation-delay: 0.1s;">
-                        <div class="flex flex-col items-center">
-                            <i class="fas fa-pencil-ruler text-5xl text-[#FCD34D] mb-2"></i>
-                            <span class="text-sm font-semibold text-gray-700">受講生（小学生）</span>
-                        </div>
-                        <div class="speech-bubble bubble-parent">
-                            <p class="text-gray-800 font-medium">
-                                学習が終わって教材を綴じるときにリボン結びをします。最初（はじめて）はできなかったリボン結びができるようになって、うれしいです。
-                            </p>
-                            <p class="text-xs text-gray-500 mt-2 text-right">（小学生）</p>
-                        </div>
-                    </div>
-                    
-                    <!-- 受講生の声 3 (左: 保護者) -->
-                    <div class="bubble-wrapper parent-side fade-in" style="animation-delay: 0.2s;">
-                        <div class="flex flex-col items-center">
-                            <i class="fas fa-graduation-cap text-5xl text-[#FCD34D] mb-2"></i>
-                            <span class="text-sm font-semibold text-gray-700">保護者さま</span>
-                        </div>
-                        <div class="speech-bubble bubble-parent">
-                            <p class="text-gray-800 font-medium">
-                                「楽しく通っている」「問題をよく読むようになった」「学校の成績が上がった」「集中力がついた」など、多くの変化が見られました。様々な教育機関に相談し改善に至らなかった私ずーっと悩んでいたので、藤井先生に出会えて良かったです。
-                            </p>
-                            <p class="text-xs text-gray-500 mt-2 text-right">（保護者さま）</p>
-                        </div>
-                    </div>
-
-                </div>
-            </div>
-        </section>
-        <!-- ★★★ 受講生の声セクション ここまで ★★★ -->
-
-
         <!-- Gallery Section (5. 作品例) -->
-        <section id="gallery" class="py-20 px-6">
+        <section id="gallery" class="py-20 px-6 bg-gray-100">
             <div class="container mx-auto">
                 <h2 class="text-4xl font-bold text-center text-gray-900 mb-12 fade-in">作品例を見てみよう</h2>
                 
@@ -523,9 +402,9 @@
                     <div class="mt-12 pt-6 border-t border-gray-200 text-center">
                         <h3 class="text-2xl font-bold text-gray-900 mb-6">教室のチラシはこちら！</h3>
                         <!-- 画像クリックでopenFlyerModal関数を呼び出す -->
-                        <img id="flyer-image" src="data/中学生が教える_v3.0.png" alt="プログラミング教室のチラシ" 
+                        <img id="flyer-image" src="中学生が教える_v3.0.png" alt="プログラミング教室のチラシ" 
                              class="w-full h-auto max-w-xl mx-auto rounded-lg shadow-2xl border-4 border-white transition duration-500 hover:scale-[1.02] cursor-pointer"
-                             onclick="openFlyerModal('data/中学生が教える_v3.0.png')"
+                             onclick="openFlyerModal('中学生が教える_v3.0.png')"
                              onerror="this.onerror=null; this.src='https://placehold.co/600x800/eeeeee/333333?text=FLYER+IMAGE+HERE';">
                         <p class="text-center text-gray-600 mt-4 text-sm">
                             ※画像をクリックすると拡大表示（クリックで閉じます）
@@ -539,7 +418,7 @@
         </section>
         
         <!-- Activity Log Section (6. 活動記録) -->
-        <section id="news" class="py-20 px-6 bg-gray-100">
+        <section id="news" class="py-20 px-6">
             <div class="container mx-auto">
                 <h2 class="text-4xl font-bold text-center text-gray-900 mb-12 fade-in">活動記録</h2>
                 
@@ -621,9 +500,9 @@
         // ★★★ カテゴリカラーをパステルカラーで複数色に変更 (カラフル化) ★★★
         const activityData = [
             {
-                date: "2025年X月X日",
+                date: "2025年10月5日",
                 category: "お知らせ",
-                categoryColor: "bg-[#AEC6CF]",
+                categoryColor: "bg-[#AEC6CF]", // Light Blue
                 title: "「中学生が教えるプログラミング教室」Webサイト公開",
                 summary: "中学生が教えるプログラミング教室の公式Webサイトが公開されました。",
                 content: `
@@ -631,15 +510,15 @@
                         「中学生が教えるプログラミング教室」の公式Webサイトが公開されました！
                     </p>
                     <p>
-                        このサイトでは、教室の**概要**や**中学生講師の紹介**、**過去の活動記録**などを掲載しています。
+                        このサイトでは、教室の<strong>概要</strong>や<strong>中学生講師の紹介</strong>、<strong>過去の活動記録</strong>などを掲載しています。
                         この教室は、プログラミング教育に情熱を持つ中学生講師So-㎃によって立ち上げられました。
                     </p>
                     <p>
-                        子どもたちの「やってみたい」という意欲を大切にし、決まったカリキュラムではなく、**一人ひとりの興味**に応じた自由な制作をサポートしていきます。
+                        子どもたちの「やってみたい」という意欲を大切にし、決まったカリキュラムではなく、<strong>一人ひとりの興味</strong>に応じた自由な制作をサポートしていきます。
                         ぜひ、サイトをご覧いただき、教室へのご参加を検討ください。
                     </p>
                     <p>
-                        今後も活動記録を随時更新していきますので、ご期待ください。
+                        今後も活動記録を随時更新していきますので、ご期待ください！
                     </p>
                 `
             },
@@ -649,35 +528,40 @@
                 categoryColor: "bg-[#FFC7A4]", // Peach
                 title: "第1回プログラミング教室開催",
                 summary: "第1回目のプログラミング教室をデイサービス「だいすきなしろいくつ」さんで開催しました。",
-                // ★YouTube埋め込みコードに更新 - 縦長動画 (Shorts) に対応★
+                // ★HTMLを含むコンテンツを更新 - YouTube Shortを右にフロート★
                 content: `
-                    <!-- ★★★ 挿入するYouTube Shorts (右寄せ) ★★★ -->
-                    <!-- md:float-rightで右に寄せ、md:w-64で幅を固定。md:ml-6で左側にマージンを作成。 -->
+                    <!-- ★★★ 挿入するYouTube Short (右寄せ) ★★★ -->
+                    <!-- md:float-rightで右に寄せ、md:w-64で幅を固定 (約256px) 。md:ml-6で左側にマージンを作成。 -->
                     <div class="my-8 text-center md:my-4 md:ml-6 md:w-64 md:float-right md:mb-6">
-                        <!-- 縦長 (9:16) の埋め込みを表現するため、高さを固定。w-full (md:w-64) に合わせる -->
-                        <iframe 
-                            src="https://www.youtube.com/embed/CYgbrtlx4sk?rel=0" 
-                            frameborder="0" 
-                            allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                            allowfullscreen
-                            class="rounded-xl shadow-lg w-full mx-auto"
-                            style="height: 455px; max-width: 256px;" 
-                            onerror="this.onerror=null; this.src='https://placehold.co/256x455/eeeeee/333333?text=Video+Unavailable'"
-                        ></iframe>
-                        <p class="text-sm text-gray-500 mt-2">活動の様子（YouTube Shortsより）</p>
+                        <div class="w-full h-auto rounded-xl overflow-hidden shadow-2xl border-4 border-white mx-auto">
+                            <!-- Shortの縦長（9:16）比率を維持するため、heightを幅に合わせて約455pxに設定 -->
+                            <iframe 
+                                width="100%" 
+                                height="455"
+                                src="https://www.youtube.com/embed/CYgbrtlx4sk" 
+                                frameborder="0" 
+                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
+                                allowfullscreen
+                                class="block">
+                            </iframe>
+                        </div>
+                        <p class="text-sm text-gray-500 mt-2">教室での活動動画（YouTube Short）</p>
                     </div>
                     <!-- ★★★ 動画ここまで ★★★ -->
 
                     <p>
-                        2025年8月5日、デイサービス<strong>「だいすきなしろいくつ」</strong>さんのご協力をいただき、記念すべき第1回目のプログラミング教室を開催することができました！
-                        参加してくれた子どもたち、保護者の皆様、そして会場を提供してくださった「だいすきなしろいくつ」様に心より感謝申し上げます。
+                        2025年8月5日、放課後等デイサービス<black>「だいすきなしろいくつ」</black>さんからご依頼があり、記念すべき第1回目のプログラミング教室を開催することができました！
+                        参加してくれたA君、会場を提供してくださった「だいすきなしろいくつ」様に心より感謝申し上げます。
                     </p>
 
                     <p>
-                        子どもたちは、事前の相談して決めた内容に挑戦しました。
+                        最初は3人の予定でしたが、体調不良等で1人になりました。少し寂しかったですが、マンツーマンで上手く進めることが出来たのでよかったです。
                     </p>
                     <p>
-                        今回は初めての開催でしたが、子供たちが楽しそうにプログラミングをできていてよかったです。
+                        A君は、事前に相談して決めた内容に挑戦しました。
+                    </p>
+                    <p>
+                        今回は初めての開催でしたが、A君が楽しそうに夢中になってプログラミングに取り組んでいてよかったです。
                     </p>
                     <!-- floatを解除するため、h3にclear-rightを適用 -->
                     <h3 class="text-2xl font-bold text-gray-900 mt-8 mb-4 border-b pb-2 clear-right">体験した内容</h3>
@@ -686,8 +570,8 @@
                     </ul>
                     
                     <p>
-                        参加者からは「自分でもできた！」「おもしろかった！」という嬉しい声をたくさんいただきました。
-                        今後も、子どもたちが<strong>自由に創造性を発揮できる</strong>場を提供できるよう、活動していきたいと思います！
+                        A君はやんちゃな子だと聞いていましたが、静かに座って聞いていて、とても飲み込みが早く作品のアレンジも上手で、驚きました。
+                        今後も、子どもたちに<strong>楽しんでもらえる</strong>よう、活動していきたいと思います！
                     </p>
                 `
             }
@@ -770,6 +654,8 @@
         const modalFlyerImage = document.getElementById('modal-flyer-image');
 
         window.openFlyerModal = function(imageSrc) {
+            // Note: This function is now only used for the flyer image in the Gallery section. 
+            // Activity log details now use embedded YouTube iframes or simple images without the modal.
             modalFlyerImage.src = imageSrc;
             flyerModal.classList.add('open');
             document.body.style.overflow = 'hidden'; // 背景のスクロールを無効
