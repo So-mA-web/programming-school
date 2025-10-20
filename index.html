@@ -215,6 +215,34 @@
             box-shadow: 0 10px 30px rgba(0, 0, 0, 0.5);
             cursor: pointer; /* 閉じるためのクリック可能を示す */
         }
+
+        /* ★★★ トップに戻るボタンのスタイル (追加) ★★★ */
+        #to-top-button {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 999;
+            /* パステルカラーの背景 */
+            background-color: #A5B4FC; /* Soft Lavender */
+            color: white;
+            padding: 1rem;
+            border-radius: 50%;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+            opacity: 0;
+            visibility: hidden;
+            transition: opacity 0.3s, visibility 0.3s, transform 0.3s;
+            /* アイコンを大きく見せる */
+            font-size: 1.5rem; 
+            cursor: pointer;
+        }
+
+        #to-top-button.show {
+            opacity: 1;
+            visibility: visible;
+            /* ホバーエフェクト */
+            transform: scale(1.05);
+            background-color: #83E8D0; /* Hover to Soft Mint */
+        }
         
     </style>
 </head>
@@ -479,6 +507,12 @@
         </div>
     </div>
     <!-- ★★★ モーダルここまで ★★★ -->
+    
+    <!-- ★★★ トップに戻るボタン (追加) ★★★ -->
+    <button id="to-top-button" aria-label="トップに戻る" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+    <!-- ★★★ トップに戻るボタン ここまで ★★★ -->
 
 
     <!-- Footer Section -->
@@ -681,6 +715,29 @@
                 box.classList.remove('show');
             }, 3000);
         }
+
+        // ★★★ 6. トップに戻るボタンの機能 (追加) ★★★
+        const toTopButton = document.getElementById('to-top-button');
+        
+        // スクロールイベントでボタンの表示/非表示を切り替える
+        window.addEventListener('scroll', () => {
+            // ヒーローセクションを過ぎたあたり (例えば、ビューポートの高さの半分) で表示
+            if (window.scrollY > window.innerHeight / 2) { 
+                toTopButton.classList.add('show');
+            } else {
+                toTopButton.classList.remove('show');
+            }
+        });
+        
+        // トップにスクロールする関数
+        window.scrollToTop = function() {
+            window.scrollTo({
+                top: 0,
+                behavior: 'smooth'
+            });
+        };
+        // ★★★ トップに戻るボタンの機能 ここまで ★★★
+
 
         document.addEventListener('DOMContentLoaded', () => {
             const menuButton = document.getElementById('menu-button');
