@@ -91,8 +91,8 @@
 
         /* ヘッダーの高さ分、スクロール位置を調整するCSS */
         html {
-            /* ヘッダーが2段になったため、高さを増やす */
-            scroll-padding-top: 120px; 
+            /* ヘッダーの高さが少し増えたため、6rem(96px)程度に調整 */
+            scroll-padding-top: 6.5rem; 
         }
         
         /* ヒーローセクションの背景画像スタイル */
@@ -275,11 +275,40 @@
 <body class="bg-gray-100 text-gray-800">
 
     <!-- Header Section (メインナビゲーション) -->
-    <!-- md:flex-col: デスクトップでFlexの方向を縦にする (2段構成のため) -->
+    <!-- flex items-center: タイトルとナビゲーション全体を中央に配置 -->
     <header class="bg-white shadow-md fixed top-0 left-0 w-full z-50">
-        <!-- 1段目: タイトルとハンバーガーメニュー -->
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
-            <a href="#" class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">中学生が教えるプログラミング教室</a>
+            
+            <!-- タイトル (左側) -->
+            <a href="#" class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900 shrink-0">中学生が教えるプログラミング教室</a>
+            
+            <!-- ナビゲーションコンテナ (右側) -->
+            <!-- md:w-auto: デスクトップで幅をコンテンツに合わせる -->
+            <div class="hidden md:block md:w-auto ml-8">
+                <nav id="desktop-nav">
+                    <!-- Nav リンクリスト -->
+                    <!-- flex flex-col: 項目全体を縦並びにする -->
+                    <!-- space-y-1: 縦方向のスペース -->
+                    <div class="flex flex-col space-y-1">
+                        
+                        <!-- 1段目 (上段) -->
+                        <div class="flex flex-wrap justify-end space-x-6">
+                            <a href="#about" class="text-gray-600 hover:text-gray-400 nav-link-underline transition-colors duration-300">概要</a>
+                            <a href="#workshop" class="text-gray-600 hover:text-gray-400 nav-link-underline transition-colors duration-300">キミのやりたいことを見つけよう</a>
+                            <a href="#teachers" class="text-gray-600 hover:text-gray-400 nav-link-underline transition-colors duration-300">中学生教師</a>
+                        </div>
+                        
+                        <!-- 2段目 (下段) -->
+                        <div class="flex flex-wrap justify-end space-x-6">
+                            <a href="#gallery" class="text-gray-600 hover:text-gray-400 nav-link-underline transition-colors duration-300">作品例を見てみよう</a>
+                            <a href="#voice" class="text-gray-600 hover:text-gray-400 nav-link-underline transition-colors duration-300">参加者の声</a>
+                            <a href="#news" class="text-gray-600 hover:text-gray-400 nav-link-underline transition-colors duration-300">活動記録</a>
+                        </div>
+                    </div>
+                </nav>
+            </div>
+            
+            <!-- ハンバーガーメニュー (モバイル用) -->
             <div class="md:hidden">
                 <button id="menu-button" class="text-gray-600 focus:outline-none relative">
                     <i id="bars-icon" class="fas fa-bars text-2xl transition-transform duration-300"></i>
@@ -288,27 +317,6 @@
             </div>
         </div>
 
-        <!-- 2段目: デスクトップ用ナビゲーション (md:flex以上で表示) -->
-        <!-- md:block: デスクトップでのみナビゲーションを表示 -->
-        <nav id="desktop-nav" class="hidden md:block border-t border-gray-100 py-3">
-            <!-- max-w-7xl: 幅を広げ、中央寄せに -->
-            <div class="container mx-auto px-6">
-                <!-- flex justify-center: 中央に配置 -->
-                <!-- space-x-8: リンク間のスペースを広げる -->
-                <div class="flex flex-wrap justify-center space-x-8">
-                    <!-- リンクグループ 1 (4項目) -->
-                    <a href="#about" class="text-gray-600 hover:text-gray-400 nav-link-underline transition-colors duration-300">概要</a>
-                    <a href="#workshop" class="text-gray-600 hover:text-gray-400 nav-link-underline transition-colors duration-300">キミのやりたいことを見つけよう</a>
-                    <a href="#teachers" class="text-gray-600 hover:text-gray-400 nav-link-underline transition-colors duration-300">中学生教師</a>
-                    <a href="#gallery" class="text-gray-600 hover:text-gray-400 nav-link-underline transition-colors duration-300">作品例を見てみよう</a>
-                    
-                    <!-- リンクグループ 2 (2項目) -->
-                    <a href="#voice" class="text-gray-600 hover:text-gray-400 nav-link-underline transition-colors duration-300">参加者の声</a>
-                    <a href="#news" class="text-gray-600 hover:text-gray-400 nav-link-underline transition-colors duration-300">活動記録</a>
-                </div>
-            </div>
-        </nav>
-        
         <!-- モバイルメニュー (元のまま) -->
         <div id="mobile-menu" class="fixed top-0 left-0 w-full h-full bg-white z-40 transform -translate-y-full transition-transform duration-300 ease-in-out pt-16">
             <div class="flex flex-col items-center py-8">
@@ -326,7 +334,8 @@
     </header>
 
     <!-- ヘッダーの高さが変わったため、pt-16を修正する代わりに、CSSのscroll-padding-topで対応しています -->
-    <main class="pt-16">
+    <!-- pt-28: ヘッダーの新しい高さに合わせて調整 (約6.5rem = 104px) -->
+    <main class="pt-28">
         <!-- Hero Section - 静的な背景画像に変更 -->
         <section id="hero-section" class="relative min-h-screen px-6 flex flex-col items-center justify-center text-center text-gray-800">
             <!-- 背景画像用レイヤー -->
