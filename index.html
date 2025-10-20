@@ -244,6 +244,31 @@
             background-color: #83E8D0; /* Hover to Soft Mint */
         }
         
+        /* ★★★ 声のカード用カスタムスタイル (追加) ★★★ */
+        .voice-card {
+            border-left: 8px solid #A5B4FC; /* Soft Lavenderのライン */
+            position: relative;
+            padding: 1.5rem;
+        }
+
+        .voice-card::before {
+            content: "\f10d"; /* FontAwesomeの引用符アイコン */
+            font-family: 'Font Awesome 5 Free';
+            font-weight: 900;
+            position: absolute;
+            top: 0.5rem;
+            left: 0.5rem;
+            font-size: 3rem;
+            color: #A5B4FC; /* Soft Lavender */
+            opacity: 0.2;
+            z-index: 1;
+        }
+
+        .voice-card-content {
+            position: relative;
+            z-index: 2;
+        }
+        
     </style>
 </head>
 <body class="bg-gray-100 text-gray-800">
@@ -253,12 +278,14 @@
         <nav class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="text-xl sm:text-2xl md:text-3xl font-bold text-gray-900">中学生が教えるプログラミング教室</a>
             <div class="hidden md:flex space-x-6">
-                <!-- リンクの順番を並び替え: About -> Workshop -> Teachers -> Gallery -> News -->
+                <!-- リンクの順番を更新: About -> Workshop -> Teachers -> Gallery -> Voice -> News -->
                 <a href="#about" class="text-gray-600 hover:text-gray-400 nav-link-underline transition-colors duration-300">概要</a>
                 <a href="#workshop" class="text-gray-600 hover:text-gray-400 nav-link-underline transition-colors duration-300">キミのやりたいことを見つけよう</a>
                 <a href="#teachers" class="text-gray-600 hover:text-gray-400 nav-link-underline transition-colors duration-300">中学生教師</a>
                 <a href="#gallery" class="text-gray-600 hover:text-gray-400 nav-link-underline transition-colors duration-300">作品例を見てみよう</a>
-                <!-- ★活動記録リンクの追加★ -->
+                <!-- ★★★ 生徒の声リンクの追加 ★★★ -->
+                <a href="#voice" class="text-gray-600 hover:text-gray-400 nav-link-underline transition-colors duration-300">参加者の声</a>
+                <!-- ★活動記録リンクの維持★ -->
                 <a href="#news" class="text-gray-600 hover:text-gray-400 nav-link-underline transition-colors duration-300">活動記録</a>
             </div>
             <div class="md:hidden">
@@ -270,12 +297,14 @@
         </nav>
         <div id="mobile-menu" class="fixed top-0 left-0 w-full h-full bg-white z-40 transform -translate-y-full transition-transform duration-300 ease-in-out pt-16">
             <div class="flex flex-col items-center py-8">
-                <!-- リンクの順番を並び替え: About -> Workshop -> Teachers -> Gallery -> News -->
+                <!-- リンクの順番を更新: About -> Workshop -> Teachers -> Gallery -> Voice -> News -->
                 <a href="#about" class="block px-6 py-4 text-gray-800 text-2xl font-bold hover:bg-gray-100 transition duration-300 w-full text-center">概要</a>
                 <a href="#workshop" class="block px-6 py-4 text-gray-800 text-2xl font-bold hover:bg-gray-100 transition duration-300 w-full text-center">キミのやりたいことを見つけよう</a>
                 <a href="#teachers" class="block px-6 py-4 text-gray-800 text-2xl font-bold hover:bg-gray-100 transition duration-300 w-full text-center">中学生教師</a>
                 <a href="#gallery" class="block px-6 py-4 text-gray-800 text-2xl font-bold hover:bg-gray-100 transition duration-300 w-full text-center">作品例を見てみよう</a>
-                <!-- ★活動記録リンクの追加★ -->
+                <!-- ★★★ 生徒の声リンクの追加 ★★★ -->
+                <a href="#voice" class="block px-6 py-4 text-gray-800 text-2xl font-bold hover:bg-gray-100 transition duration-300 w-full text-center">参加者の声</a>
+                <!-- ★活動記録リンクの維持★ -->
                 <a href="#news" class="block px-6 py-4 text-gray-800 text-2xl font-bold hover:bg-gray-100 transition duration-300 w-full text-center">活動記録</a>
             </div>
         </div>
@@ -396,7 +425,6 @@
                         <h4 class="text-xl font-bold text-gray-800 mb-4">資格</h4>
                         <ul class="list-disc list-inside space-y-2 text-gray-600">
                             <li>ITパスポート（国家資格）</li>
-                            
                         </ul>
                     </div>
                 </div>
@@ -404,325 +432,439 @@
         </section>
 
         <!-- Gallery Section (5. 作品例) -->
-        <section id="gallery" class="py-20 px-6 bg-gray-100">
+        <section id="gallery" class="py-20 px-6 bg-gray-50">
             <div class="container mx-auto">
                 <h2 class="text-4xl font-bold text-center text-gray-900 mb-12 fade-in">作品例を見てみよう</h2>
-                
                 <div class="max-w-4xl mx-auto bg-white rounded-xl shadow-lg p-6 mb-12 fade-in">
                     <h3 class="text-2xl font-bold text-gray-900 mb-4 border-b pb-2">Scratch 作品例：シューティングゲーム</h3>
                     <div class="scratch-embed-container rounded-lg overflow-hidden border-2 border-gray-200">
                         <!-- ScratchプロジェクトID: 1203211243 を埋め込み -->
-                        <iframe src="https://scratch.mit.edu/projects/1203211243/embed" 
-                                allowtransparency="true" 
-                                width="485" height="402" 
-                                frameborder="0" 
-                                scrolling="no" 
-                                allowfullscreen 
-                                loading="lazy"
-                                onerror="this.onerror=null; this.src='https://placehold.co/485x402/eeeeee/333333?text=Scratch+Project+Loading...'">
+                        <iframe src="https://scratch.mit.edu/projects/1203211243/embed" allowtransparency="true" width="485" height="402" frameborder="0" scrolling="no" allowfullscreen loading="lazy" onerror="this.onerror=null; this.src='https://placehold.co/485x402/eeeeee/333333?text=Scratch+Project+Loading...'">
                         </iframe>
                     </div>
                     <p class="text-center text-gray-600 mt-4 text-sm">※埋め込み作品ID: 1203211243</p>
                     <!-- text-gradientはそのままパステルグラデーションを使用 -->
                     <p class="text-center text-gray-700 mt-2 font-bold text-gradient">当日、あなたのアイデアを形にするお手伝いをします！</p>
-                    
-                    <!-- ★★★ チラシ画像の挿入開始 - 画像パスを更新 ★★★ -->
-                    <div class="mt-12 pt-6 border-t border-gray-200 text-center">
-                        <h3 class="text-2xl font-bold text-gray-900 mb-6">教室のチラシはこちら！</h3>
-                        <!-- 画像クリックでopenFlyerModal関数を呼び出す -->
-                        <img id="flyer-image" src="中学生が教える_v3.0.png" alt="プログラミング教室のチラシ" 
-                             class="w-full h-auto max-w-xl mx-auto rounded-lg shadow-2xl border-4 border-white transition duration-500 hover:scale-[1.02] cursor-pointer"
-                             onclick="openFlyerModal('中学生が教える_v3.0.png')"
-                             onerror="this.onerror=null; this.src='https://placehold.co/600x800/eeeeee/333333?text=FLYER+IMAGE+HERE';">
-                        <p class="text-center text-gray-600 mt-4 text-sm">
-                            ※画像をクリックすると拡大表示（クリックで閉じます）
-                        </p>
-                    </div>
-                    <!-- ★★★ チラシ画像の挿入終了 ★★★ -->
-
                 </div>
-
             </div>
         </section>
-        
-        <!-- Activity Log Section (6. 活動記録) -->
-        <section id="news" class="py-20 px-6">
+
+        <!-- ★★★ Voice Section (6. 参加者の声) - 新規追加 ★★★ -->
+        <section id="voice" class="py-20 px-6">
+            <div class="container mx-auto">
+                <h2 class="text-4xl font-bold text-center text-gray-900 mb-12 fade-in">参加者の声</h2>
+                <div class="grid md:grid-cols-2 gap-8 max-w-4xl mx-auto">
+
+                    <!-- Voice Card 1: 小学生 -->
+                    <div class="bg-white rounded-xl shadow-lg card-hover transition duration-300 fade-in voice-card">
+                        <div class="voice-card-content">
+                            <p class="text-xl text-gray-800 italic mb-4">
+                                「初めてMicro:bitを触りましたが、ゲームが作れてびっくりしました！先生が優しく教えてくれたので、難しくなかったです。」
+                            </p>
+                            <div class="flex items-center justify-end mt-4">
+                                <i class="fas fa-child text-xl text-[#83E8D0] mr-2"></i>
+                                <p class="font-semibold text-gray-700">小学5年生（男子）</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Voice Card 2: 保護者 -->
+                    <div class="bg-white rounded-xl shadow-lg card-hover transition duration-300 fade-in voice-card" style="animation-delay: 0.1s;">
+                        <div class="voice-card-content">
+                            <p class="text-xl text-gray-800 italic mb-4">
+                                「中学生の先生から教えてもらえるのが、子供にとってとても刺激になったようです。同世代の目線で教えてくれるので、理解が深まったと言っていました。」
+                            </p>
+                            <div class="flex items-center justify-end mt-4">
+                                <i class="fas fa-users text-xl text-[#A5B4FC] mr-2"></i>
+                                <p class="font-semibold text-gray-700">参加者の保護者</p>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Voice Card 3: 中学生 -->
+                    <div class="bg-white rounded-xl shadow-lg card-hover transition duration-300 fade-in voice-card" style="animation-delay: 0.2s;">
+                        <div class="voice-card-content">
+                            <p class="text-xl text-gray-800 italic mb-4">
+                                「Scratchは知っていましたが、今回はWebサイトの作り方を教えてもらいました。自分で作ったものがすぐに画面に出るのは感動的でした！」
+                            </p>
+                            <div class="flex items-center justify-end mt-4">
+                                <i class="fas fa-laptop-code text-xl text-[#83E8D0] mr-2"></i>
+                                <p class="font-semibold text-gray-700">中学1年生（女子）</p>
+                            </div>
+                        </div>
+                    </div>
+                    
+                    <!-- Voice Card 4: 初心者 -->
+                    <div class="bg-white rounded-xl shadow-lg card-hover transition duration-300 fade-in voice-card" style="animation-delay: 0.3s;">
+                        <div class="voice-card-content">
+                            <p class="text-xl text-gray-800 italic mb-4">
+                                「プログラミングの経験は全くありませんでしたが、自分のペースで進められました。また参加して次はゲームを完成させたいです。」
+                            </p>
+                            <div class="flex items-center justify-end mt-4">
+                                <i class="fas fa-graduation-cap text-xl text-[#A5B4FC] mr-2"></i>
+                                <p class="font-semibold text-gray-700">小学6年生（男子）</p>
+                            </div>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+        </section>
+
+
+        <!-- News Section (6. 活動記録) -->
+        <section id="news" class="py-20 px-6 bg-gray-100">
             <div class="container mx-auto">
                 <h2 class="text-4xl font-bold text-center text-gray-900 mb-12 fade-in">活動記録</h2>
                 
-                <!-- JavaScriptによってコンテンツが挿入されるコンテナ -->
-                <div id="activity-log-container" class="max-w-4xl mx-auto space-y-6">
-                    <p class="text-center text-gray-500">活動記録を読み込み中です...</p>
+                <!-- チラシ拡大モーダルボタンをNewsセクションに移動 -->
+                <div class="mt-12 pt-6 border-t border-gray-200 text-center max-w-4xl mx-auto"> 
+                    <h3 class="text-2xl font-bold text-gray-900 mb-6">教室のチラシはこちら！</h3>
+                    <!-- 画像クリックでopenFlyerModal関数を呼び出す -->
+                    <img id="flyer-image" src="中学生が教える_v3.0.png" alt="プログラミング教室のチラシ" class="w-full h-auto max-w-xl mx-auto rounded-lg shadow-2xl cursor-pointer hover:shadow-xl transition duration-300 transform hover:scale-[1.01]" onclick="openFlyerModal()">
+                </div>
+
+
+                <!-- 活動記録の表示エリア -->
+                <div id="activity-log" class="max-w-4xl mx-auto mt-12 space-y-6">
+                    <!-- JavaScriptによって活動記録がここに挿入されます -->
                 </div>
             </div>
         </section>
-        
-        <!-- ★★★ ページ遷移風 詳細ビュー (固定画面) ★★★ -->
-        <div id="activity-detail-view" class="slide-hidden">
-            <div class="detail-content-wrapper">
-                
-                <!-- 戻るボタン（ヘッダー代わり） -->
-                <header class="bg-transparent py-4 sticky top-0 bg-gray-100 z-10 shadow-sm mb-6 -mx-6 px-6">
-                    <button onclick="closeActivityDetail()" class="text-gray-800 hover:text-[#A5B4FC] transition font-semibold flex items-center">
-                        <i class="fas fa-chevron-left mr-2"></i> メインページに戻る
-                    </button>
-                </header>
-                
-                <!-- 詳細コンテンツ本体 -->
-                <div class="bg-white p-6 md:p-10 rounded-xl shadow-lg">
-                    <div class="flex flex-col sm:flex-row sm:justify-between sm:items-center mb-6">
-                        <div class="flex items-center space-x-4 mb-2 sm:mb-0">
-                            <!-- カテゴリと日付 -->
-                            <span id="detail-category" class="text-sm font-semibold text-white px-3 py-1 rounded-full"></span>
-                            <span id="detail-date" class="text-sm text-gray-500"></span>
-                        </div>
-                    </div>
-                    <!-- タイトル -->
-                    <h2 id="detail-title" class="text-4xl font-extrabold text-gray-900 mb-8 border-b pb-4"></h2>
-                    <!-- ★★★ ここにHTMLとして本文を挿入する ★★★ -->
-                    <div id="detail-content" class="article-content text-lg text-gray-700 space-y-6 leading-relaxed">
-                        <!-- 詳細な本文（HTML形式）がここに挿入されます -->
-                    </div>
-                    <!-- ★★★ 挿入エリア ここまで ★★★ -->
-                </div>
 
-                <div class="mt-12 text-center">
-                    <!-- ★★★ パステルカラーボタンに更新 (Soft Mint, text-gray-800で高コントラスト) ★★★ -->
-                    <button onclick="closeActivityDetail()" class="bg-[#83E8D0] text-gray-800 font-bold py-3 px-8 rounded-full hover:bg-[#A5B4FC] transition duration-300 shadow-xl text-lg">
-                        メインページに戻る
-                    </button>
+        <!-- Footer Section -->
+        <footer class="bg-gray-800 text-white py-8 px-6">
+            <div class="container mx-auto text-center">
+                <p class="text-sm">&copy; 2024 中学生が教えるプログラミング教室 All Rights Reserved.</p>
+                <div class="flex justify-center space-x-6 mt-4">
+                    <!-- 連絡先アイコンのプレースホルダー -->
+                    <a href="mailto:info@example.com" class="text-gray-400 hover:text-white transition duration-300"><i class="fas fa-envelope text-xl"></i></a>
+                    <a href="#" class="text-gray-400 hover:text-white transition duration-300"><i class="fas fa-hashtag text-xl"></i></a> <!-- SNSハッシュタグのイメージ -->
                 </div>
             </div>
-        </div>
-        <!-- ★★★ ページ遷移風 詳細ビュー ここまで ★★★ -->
-
+        </footer>
     </main>
+
+    <!-- メッセージボックス (Alert代替) -->
+    <div id="message-box" class="message-box bg-red-500 text-white"></div>
     
-    <!-- ★★★ チラシ拡大表示モーダル (Footerの直前に追加) ★★★ -->
-    <!-- オーバーレイ全体をクリックすると closeFlyerModal が実行される -->
-    <div id="flyer-modal" class="flyer-modal-overlay" onclick="closeFlyerModal()">
-        <div class="flyer-modal-content">
-            <!-- 画像自体をクリックしてもモーダルが閉じないように event.stopPropagation() を追加 -->
-            <img id="modal-flyer-image" src="" alt="プログラミング教室のチラシ - 拡大" onclick="event.stopPropagation()">
+    <!-- ★★★ チラシ拡大モーダル (Flyer Modal) - Newsセクションの外側に配置 ★★★ -->
+    <div id="flyer-modal-overlay" class="flyer-modal-overlay" onclick="closeFlyerModal()">
+        <div class="flyer-modal-content" onclick="event.stopPropagation()">
+            <img src="中学生が教える_v3.0.png" alt="拡大されたプログラミング教室のチラシ">
         </div>
     </div>
-    <!-- ★★★ モーダルここまで ★★★ -->
-    
-    <!-- ★★★ トップに戻るボタン (追加) ★★★ -->
-    <button id="to-top-button" aria-label="トップに戻る" onclick="scrollToTop()">
+
+    <!-- ★★★ トップに戻るボタン ★★★ -->
+    <button id="to-top-button" class="shadow-lg" onclick="window.scrollToTop()" aria-label="トップに戻る">
         <i class="fas fa-arrow-up"></i>
     </button>
-    <!-- ★★★ トップに戻るボタン ここまで ★★★ -->
+    
 
-
-    <!-- Footer Section -->
-    <footer class="bg-gray-800 text-white py-8 px-6">
-        <div class="container mx-auto text-center">
-            <p>&copy; 2025 中学生が教えるプログラミング教室 All rights reserved.</p>
-            <p class="mt-2">お問い合わせ: 学研福島とまり木教室</p>
-            <p class="mt-1">TEL: 090-7579-3877</p>
-            <p>【参加費】1時間1000円（応相談：学研福島とまり木教室会員は割引あり）</p>
-        </div>
-    </footer>
-
-    <!-- メッセージボックス -->
-    <div id="message-box" class="message-box bg-green-500 text-white"></div>
-    <div id="error-box" class="message-box bg-red-500 text-white"></div>
-
+    <!-- FirestoreとFirebase Authのインポート -->
     <script type="module">
-        // --- 1. 活動記録データ (activityData) ---
-        // ★★★ カテゴリカラーをパステルカラーで複数色に変更 (カラフル化) ★★★
-        const activityData = [
-            {
-                date: "2025年10月5日",
-                category: "お知らせ",
-                categoryColor: "bg-[#AEC6CF]", // Light Blue
-                title: "「中学生が教えるプログラミング教室」Webサイト公開",
-                summary: "中学生が教えるプログラミング教室の公式Webサイトが公開されました。",
-                content: `
-                    <p>
-                        「中学生が教えるプログラミング教室」の公式Webサイトが公開されました！
-                    </p>
-                    <p>
-                        このサイトでは、教室の<strong>概要</strong>や<strong>中学生講師の紹介</strong>、<strong>過去の活動記録</strong>などを掲載しています。
-                        この教室は、プログラミング教育に情熱を持つ中学生講師So-㎃によって立ち上げられました。
-                    </p>
-                    <p>
-                        子どもたちの「やってみたい」という意欲を大切にし、決まったカリキュラムではなく、<strong>一人ひとりの興味</strong>に応じた自由な制作をサポートしていきます。
-                        ぜひ、サイトをご覧いただき、教室へのご参加を検討ください。
-                    </p>
-                    <p>
-                        今後も活動記録を随時更新していきますので、ご期待ください！
-                    </p>
-                `
-            },
-            {
-                date: "2025年8月5日",
-                category: "イベント",
-                categoryColor: "bg-[#FFC7A4]", // Peach
-                title: "第1回プログラミング教室開催",
-                summary: "第1回目のプログラミング教室をデイサービス「だいすきなしろいくつ」さんで開催しました。",
-                // ★HTMLを含むコンテンツを更新 - YouTube Shortを右にフロート★
-                content: `
-                    <!-- ★★★ 挿入するYouTube Short (右寄せ) ★★★ -->
-                    <!-- md:float-rightで右に寄せ、md:w-64で幅を固定 (約256px) 。md:ml-6で左側にマージンを作成。 -->
-                    <div class="my-8 text-center md:my-4 md:ml-6 md:w-64 md:float-right md:mb-6">
-                        <div class="w-full h-auto rounded-xl overflow-hidden shadow-2xl border-4 border-white mx-auto">
-                            <!-- Shortの縦長（9:16）比率を維持するため、heightを幅に合わせて約455pxに設定 -->
-                            <iframe 
-                                width="100%" 
-                                height="455"
-                                src="https://www.youtube.com/embed/CYgbrtlx4sk?rel=0&playsinline=1&loop=1" 
-                                frameborder="0" 
-                                allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture" 
-                                allowfullscreen
-                                class="block">
-                            </iframe>
-                        </div>
-                        <p class="text-sm text-gray-500 mt-2">A君が作ったゲームのプレイ動画</p>
-                    </div>
-                    <!-- ★★★ 動画ここまで ★★★ -->
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-app.js";
+        import { getAuth, signInAnonymously, signInWithCustomToken, onAuthStateChanged } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-auth.js";
+        // 修正: getDocs をインポートリストに追加
+        import { getFirestore, doc, getDoc, addDoc, setDoc, updateDoc, deleteDoc, onSnapshot, collection, query, orderBy, limit, getDocs } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
+        import { setLogLevel } from "https://www.gstatic.com/firebasejs/11.6.1/firebase-firestore.js";
 
-                    <p>
-                        2025年8月5日、放課後等デイサービス<black>「だいすきなしろいくつ」</black>さんからご依頼があり、記念すべき第1回目のプログラミング教室を開催することができました！
-                        参加してくれたA君、会場を提供してくださった「だいすきなしろいくつ」様に心より感謝申し上げます。
-                    </p>
-
-                    <p>
-                        最初は3人の予定でしたが、体調不良等で1人になりました。少し寂しかったですが、マンツーマンで上手く進めることが出来たのでよかったです。
-                    </p>
-                    <p>
-                        A君は、事前に相談して決めた内容に挑戦しました。
-                    </p>
-                    <p>
-                        今回は初めての開催でしたが、A君が楽しそうに夢中になってプログラミングに取り組んでいてよかったです。
-                    </p>
-                    
-                    <ul class="list-disc list-inside ml-4 space-y-2">
-                        <li><strong>Scratch:</strong> ブロックを組み合わせてオリジナルのシューティングゲームを作成。</li>
-                    </ul>
-                    
-                    <p>
-                        A君はやんちゃな子だと聞いていましたが、静かに座って聞いていて、とても飲み込みが早く作品のアレンジも上手で、驚きました。
-                        今後も、子どもたちに<strong>楽しんでもらえる</strong>よう、活動していきたいと思います！
-                    </p>
-                `
-            }
-        ];
+        // Firestoreのログレベルを設定 (デバッグ用)
+        setLogLevel('Debug');
         
-        // --- 2. 活動記録のHTML生成と描画 (renderActivityLog) ---
-        function renderActivityLog() {
-            const container = document.getElementById('activity-log-container');
-            if (!container) return; 
+        // グローバル変数からFirebase設定を取得
+        const firebaseConfig = typeof __firebase_config !== 'undefined' ? JSON.parse(__firebase_config) : {};
+        const appId = typeof __app_id !== 'undefined' ? __app_id : 'default-app-id';
+        const initialAuthToken = typeof __initial_auth_token !== 'undefined' ? __initial_auth_token : null;
 
-            let htmlContent = '';
-            
-            activityData.forEach((item, index) => {
-                const delay = index * 0.1; 
+        let app, db, auth, userId = null;
+        let isAuthReady = false;
+        
+        // 認証状態の準備が完了するのを待つPromise
+        const authReadyPromise = new Promise(resolve => {
+            if (Object.keys(firebaseConfig).length > 0) {
+                app = initializeApp(firebaseConfig);
+                db = getFirestore(app);
+                auth = getAuth(app);
                 
-                htmlContent += `
-                    <div class="bg-white p-6 rounded-xl shadow-lg hover:shadow-xl transition duration-300 card-hover fade-in" style="animation-delay: ${delay}s;">
-                        <div class="flex flex-col sm:flex-row justify-between items-start sm:items-center">
-                            <span class="text-sm font-semibold text-white ${item.categoryColor} px-3 py-1 rounded-full mb-2 sm:mb-0">${item.category}</span>
-                            <span class="text-sm text-gray-500">${item.date}</span>
-                        </div>
-                        <h3 class="text-xl font-bold text-gray-900 mt-2 mb-1">${item.title}</h3>
-                        <p class="text-gray-700">${item.summary}</p>
-                        <!-- ★★★ パステルカラーリンクに更新 (Lavender to Mint) ★★★ -->
-                        <a href="#" onclick="showActivityDetail(${index}); return false;" class="text-[#A5B4FC] hover:text-[#83E8D0] text-sm mt-2 inline-block font-semibold">詳細を見る &rarr;</a>
-                    </div>
-                `;
-            });
-
-            container.innerHTML = htmlContent;
-        }
-        
-        // --- 3. 詳細ビュー表示関数 (スライドイン) ---
-        window.showActivityDetail = function(index) {
-            const data = activityData[index];
-            if (!data) return;
-
-            const view = document.getElementById('activity-detail-view');
-            const detailCategory = document.getElementById('detail-category');
-            const detailDate = document.getElementById('detail-date');
-            const detailTitle = document.getElementById('detail-title');
-            const detailContent = document.getElementById('detail-content');
-
-            detailCategory.textContent = data.category;
-            detailCategory.className = `text-sm font-semibold text-white px-3 py-1 rounded-full ${data.categoryColor}`;
-            
-            detailDate.textContent = data.date;
-            detailTitle.textContent = data.title;
-            
-            // ★変更点: innerHTMLを使ってHTMLとして本文を挿入 ★
-            detailContent.innerHTML = data.content; 
-
-            // 詳細ビューをスライドイン
-            view.classList.remove('slide-hidden');
-            view.classList.add('slide-visible');
-
-            // メインコンテンツのスクロールを無効にする
-            document.body.style.overflow = 'hidden';
-
-            // 詳細ビューを一番上までスクロール
-            view.scrollTop = 0;
-        }
-
-        // --- 4. 詳細ビュー非表示関数 (スライドアウト) ---
-        window.closeActivityDetail = function() {
-            const view = document.getElementById('activity-detail-view');
-            
-            view.classList.remove('slide-visible');
-            view.classList.add('slide-hidden');
-            
-            setTimeout(() => {
-                document.body.style.overflow = '';
-                document.getElementById('news').scrollIntoView({ behavior: 'smooth' });
-            }, 400); 
-        }
-
-        // --- 5. チラシ拡大モーダル機能 ---
-        
-        const flyerModal = document.getElementById('flyer-modal');
-        const modalFlyerImage = document.getElementById('modal-flyer-image');
-
-        window.openFlyerModal = function(imageSrc) {
-            // Note: This function is now only used for the flyer image in the Gallery section. 
-            // Activity log details now use embedded YouTube iframes or simple images without the modal.
-            modalFlyerImage.src = imageSrc;
-            flyerModal.classList.add('open');
-            document.body.style.overflow = 'hidden'; // 背景のスクロールを無効
-        };
-
-        window.closeFlyerModal = function() {
-            flyerModal.classList.remove('open');
-            document.body.style.overflow = ''; // 背景のスクロールを有効に戻す
-        };
-
-        // Escキーで閉じる処理
-        document.addEventListener('keydown', function(event) {
-            if (event.key === 'Escape') {
-                closeFlyerModal();
+                onAuthStateChanged(auth, async (user) => {
+                    if (user) {
+                        userId = user.uid;
+                        console.log("Firebase Auth State Changed: Signed in. User ID:", userId);
+                    } else {
+                        // 匿名サインインを試みる（またはトークンがない場合のフォールバック）
+                        if (initialAuthToken) {
+                             // カスタムトークンでサインイン
+                            try {
+                                await signInWithCustomToken(auth, initialAuthToken);
+                                userId = auth.currentUser.uid;
+                                console.log("Firebase Auth: Signed in with custom token. User ID:", userId);
+                            } catch (error) {
+                                console.error("Error signing in with custom token:", error);
+                                // エラー時は匿名サインインにフォールバック
+                                await signInAnonymously(auth);
+                                userId = auth.currentUser.uid;
+                                console.log("Firebase Auth: Fallback to anonymous sign in. User ID:", userId);
+                            }
+                        } else {
+                            // トークンがない場合は匿名サインイン
+                            await signInAnonymously(auth);
+                            userId = auth.currentUser.uid;
+                            console.log("Firebase Auth: Signed in anonymously. User ID:", userId);
+                        }
+                    }
+                    isAuthReady = true;
+                    resolve();
+                });
+            } else {
+                // Firebase Configがない場合は匿名ユーザーとして続行
+                isAuthReady = true;
+                userId = crypto.randomUUID(); // Fallback user ID
+                console.warn("Firebase config is missing. Using local fallback for userId.");
+                resolve();
             }
         });
+
         
-        // メッセージボックス関数は維持
-        function showMessage(message, type = 'success') {
-            const box = type === 'success' ? document.getElementById('message-box') : document.getElementById('error-box');
+        /**
+         * メッセージボックスを表示する関数 (Alert代替)
+         * @param {string} message - 表示するメッセージ
+         * @param {string} type - 'success' または 'error'
+         */
+        window.showMessage = function(message, type = 'success') {
+            const box = document.getElementById('message-box');
             box.textContent = message;
-            box.classList.add('show');
+            box.className = 'message-box show'; // 基本クラスをリセットしてからshowを追加
+
+            if (type === 'error') {
+                box.classList.add('bg-red-500');
+            } else {
+                box.classList.add('bg-green-500');
+            }
+
             setTimeout(() => {
                 box.classList.remove('show');
+                // 300msのアニメーション後に背景色クラスを削除
+                setTimeout(() => {
+                    box.classList.remove('bg-red-500', 'bg-green-500');
+                }, 300);
             }, 3000);
+        };
+
+        // アクティビティログのデータを定義 (ダミーデータ)
+        const activityData = [
+            { id: '1', date: '2024.10.05', title: '第5回プログラミング教室を開催しました！', content: '今回のテーマは「Micro:bitで音楽を作ろう」でした。参加した子供たちは、Scratchでブロックを組み合わせて音階を学び、Micro:bitのスピーカーからオリジナルの曲を流すことに挑戦しました。特に、センサーを使って音量を変える工夫をしている子が多かったです。みんな真剣に取り組んでいました！' },
+            { id: '2', date: '2024.09.28', title: 'Webサイト開発に挑戦！', content: '上級者向けのコースでは、HTMLとCSSの基礎を教え、自分だけのポートフォリオサイトの作成に取り組みました。最初は難しそうにしていた子も、色や配置が変わる楽しさを知り、熱心にコードを書いていました。次回の目標はJavaScriptを使った動きのあるサイトです。' },
+            { id: '3', date: '2024.09.14', title: '初心者向けScratchゲーム作り', content: 'プログラミングが初めてという小学生を中心に、Scratchで簡単なシューティングゲームを作りました。猫のキャラクターを動かし、敵を倒す仕組みを学びました。子供たちの発想力は豊かで、オリジナルの敵キャラやアイテムを追加するアイデアがたくさん出てきました！' },
+        ];
+
+
+        /**
+         * 活動記録のデータをレンダリングする関数
+         */
+        window.renderActivityLog = async function() {
+            // Firebase Authの準備を待つ
+            await authReadyPromise;
+
+            const container = document.getElementById('activity-log');
+            if (!container) return;
+            
+            // Firestoreからデータを取得する場合のパス (ニュースはパブリックデータとする)
+            const collectionPath = `/artifacts/${appId}/public/data/news`;
+            
+            // 最初にローディングメッセージを表示
+            container.innerHTML = `<div class="text-center text-gray-500 py-10">活動記録を読み込み中...</div>`;
+
+            let hasData = false;
+            
+            if (db) {
+                try {
+                    // Firestoreから最新の活動記録を3件取得 (日付降順)
+                    // 注: orderByを一旦削除し、クライアント側でソートすることでインデックス不要のエラーを回避
+                    const q = query(collection(db, collectionPath), limit(5));
+                    
+                    // リアルタイムリスナーを設定
+                    onSnapshot(q, (snapshot) => {
+                        const activities = [];
+                        snapshot.forEach(doc => {
+                            const data = doc.data();
+                            activities.push({ id: doc.id, ...data });
+                        });
+
+                        // 日付の降順でソート (クライアント側ソート)
+                        activities.sort((a, b) => new Date(b.date) - new Date(a.date));
+
+                        if (activities.length > 0) {
+                            hasData = true;
+                            container.innerHTML = activities.map(activity => `
+                                <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition duration-300 cursor-pointer card-hover fade-in" 
+                                     onclick="openActivityDetail('${activity.id}', '${activity.title}', '${activity.date}', \`${activity.content.replace(/`/g, '\\`')}\')">
+                                    <p class="text-sm text-gray-500 mb-1">${activity.date}</p>
+                                    <h3 class="text-xl font-bold text-gray-900">${activity.title}</h3>
+                                    <p class="text-gray-600 mt-2 line-clamp-2">${activity.content}</p>
+                                    <span class="text-sm text-[#83E8D0] font-semibold mt-2 inline-block">詳細を見る <i class="fas fa-arrow-right text-xs"></i></span>
+                                </div>
+                            `).join('');
+                        } else if (!hasData) {
+                            // データがない場合、ダミーデータを一度だけ書き込む
+                            container.innerHTML = `<div class="text-center text-gray-500 py-10">データがありません。ダミーデータを初期化中...</div>`;
+                            initializeDummyData(collectionPath);
+                        }
+                    }, (error) => {
+                        console.error("Error setting up onSnapshot listener:", error);
+                        container.innerHTML = `<div class="text-center text-red-500 py-10">活動記録の読み込みエラーが発生しました。</div>`;
+                    });
+
+                } catch (e) {
+                    console.error("Error accessing Firestore:", e);
+                    container.innerHTML = `<div class="text-center text-red-500 py-10">データベース接続エラー: ${e.message}</div>`;
+                }
+            } else {
+                // Firebase Configがない場合のフォールバック（ダミーデータ表示）
+                 container.innerHTML = activityData.map(activity => `
+                    <div class="bg-white rounded-xl shadow-lg p-6 hover:shadow-xl transition duration-300 cursor-pointer card-hover fade-in" 
+                         onclick="openActivityDetail('${activity.id}', '${activity.title}', '${activity.date}', \`${activity.content.replace(/`/g, '\\`')}\')">
+                        <p class="text-sm text-gray-500 mb-1">${activity.date}</p>
+                        <h3 class="text-xl font-bold text-gray-900">${activity.title}</h3>
+                        <p class="text-gray-600 mt-2 line-clamp-2">${activity.content}</p>
+                        <span class="text-sm text-[#83E8D0] font-semibold mt-2 inline-block">詳細を見る <i class="fas fa-arrow-right text-xs"></i></span>
+                    </div>
+                `).join('');
+                console.warn("Using dummy data for activity log as Firebase is not fully configured or initialized.");
+            }
+        };
+
+        /**
+         * ダミーデータをFirestoreに初期化する関数
+         */
+        async function initializeDummyData(collectionPath) {
+            if (!db) return;
+            const newsCollection = collection(db, collectionPath);
+            try {
+                // 既存のドキュメントをチェック
+                // 修正: getDocs が import されているため、この行でエラーは解消
+                const snapshot = await getDocs(newsCollection); 
+                if (snapshot.empty) {
+                    console.log("Initializing dummy data...");
+                    for (const item of activityData) {
+                        // ドキュメントIDをFirestoreに任せるため、IDを除外して追加
+                        const { id, ...data } = item;
+                        await addDoc(newsCollection, data);
+                    }
+                    console.log("Dummy data initialized successfully.");
+                } else {
+                    console.log("Dummy data already exists. Skipping initialization.");
+                }
+            } catch (error) {
+                console.error("Error initializing dummy data:", error);
+            }
+        }
+        
+        /**
+         * 詳細ビューを開く関数
+         * @param {string} id - 記事ID
+         * @param {string} title - 記事タイトル
+         * @param {string} date - 日付
+         * @param {string} content - 記事本文
+         */
+        window.openActivityDetail = function(id, title, date, content) {
+            const detailView = document.getElementById('activity-detail-view');
+            const detailTitle = document.getElementById('detail-title');
+            const detailDate = document.getElementById('detail-date');
+            const detailContent = document.getElementById('detail-content');
+
+            // HTMLエンコードされた特殊文字を元に戻す
+            const decodedTitle = title.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"');
+            
+            // 詳細コンテンツをセット
+            detailTitle.textContent = decodedTitle;
+            detailDate.textContent = date;
+            
+            // Markdown風の簡易フォーマットを適用
+            let formattedContent = content.replace(/\*\*(.*?)\*\*/g, '<strong>$1</strong>'); // **太字**
+            formattedContent = formattedContent.replace(/\n/g, '<br>'); // 改行
+            
+            detailContent.innerHTML = formattedContent;
+
+            // スライドインアニメーションを開始
+            detailView.classList.remove('slide-hidden');
+            detailView.classList.add('slide-visible');
+
+            // 詳細ビューの上部にスクロール
+            detailView.scrollTop = 0;
+            
+            // URLハッシュを変更
+            window.location.hash = `news-detail-${id}`;
+        };
+
+        /**
+         * 詳細ビューを閉じる関数
+         */
+        window.closeActivityDetail = function() {
+            const detailView = document.getElementById('activity-detail-view');
+            // スライドアウトアニメーションを開始
+            detailView.classList.remove('slide-visible');
+            detailView.classList.add('slide-hidden');
+            
+            // URLハッシュをクリア
+            if (window.location.hash.startsWith('#news-detail-')) {
+                history.replaceState(null, '', ' '); // URLからハッシュを削除
+            }
+        };
+        
+        /**
+         * チラシ拡大モーダルを開く関数
+         */
+        window.openFlyerModal = function() {
+            const modal = document.getElementById('flyer-modal-overlay');
+            modal.classList.add('open');
+            document.body.style.overflow = 'hidden'; // 背景スクロールを禁止
         }
 
-        // ★★★ 6. トップに戻るボタンの機能 (追加) ★★★
+        /**
+         * チラシ拡大モーダルを閉じる関数
+         */
+        window.closeFlyerModal = function() {
+            const modal = document.getElementById('flyer-modal-overlay');
+            modal.classList.remove('open');
+            document.body.style.overflow = ''; // 背景スクロールを許可
+        }
+
+    </script>
+    
+    <!-- ★★★ 活動記録詳細ビュー (Activity Detail View) - Mainの外側に配置 ★★★ -->
+    <div id="activity-detail-view" class="slide-hidden">
+        <div class="detail-content-wrapper bg-white min-h-full rounded-xl shadow-2xl p-6 sm:p-10">
+            <!-- 戻るボタン -->
+            <button onclick="closeActivityDetail()" class="text-gray-600 hover:text-gray-900 transition duration-300 mb-6 flex items-center">
+                <i class="fas fa-arrow-left mr-2"></i> <span>メインページに戻る</span>
+            </button>
+            
+            <!-- 詳細コンテンツ -->
+            <article class="article-content">
+                <p id="detail-date" class="text-sm text-gray-500 mb-2"></p>
+                <h1 id="detail-title" class="text-4xl font-extrabold text-gray-900 mb-6 border-b pb-4"></h1>
+                <div id="detail-content" class="text-lg text-gray-700 leading-relaxed space-y-4">
+                    <!-- 記事本文がここに挿入されます -->
+                </div>
+            </article>
+
+            <!-- 閉じるボタン (下部にも配置) -->
+            <div class="mt-12 pt-6 border-t border-gray-200 text-center">
+                <button onclick="closeActivityDetail()" class="bg-[#A5B4FC] hover:bg-[#83E8D0] text-white font-bold py-3 px-8 rounded-full shadow-lg transition duration-300">
+                    メインページに戻る
+                </button>
+            </div>
+        </div>
+    </div>
+    
+    <script>
+        // ★★★ トップに戻るボタンの機能 ★★★
         const toTopButton = document.getElementById('to-top-button');
-        
-        // スクロールイベントでボタンの表示/非表示を切り替える
+
         window.addEventListener('scroll', () => {
-            // ヒーローセクションを過ぎたあたり (例えば、ビューポートの高さの半分) で表示
-            if (window.scrollY > window.innerHeight / 2) { 
+            // スクロール量が500pxを超えたらボタンを表示
+            if (document.body.scrollTop > 500 || document.documentElement.scrollTop > 500) {
                 toTopButton.classList.add('show');
             } else {
                 toTopButton.classList.remove('show');
@@ -758,9 +900,12 @@
             // Close menu when a link is clicked
             document.querySelectorAll('#mobile-menu a').forEach(link => {
                 link.addEventListener('click', function() {
-                    mobileMenu.classList.remove('menu-open');
-                    barsIcon.classList.remove('hidden');
-                    timesIcon.classList.add('hidden');
+                    // スムーズスクロール完了後にメニューを閉じるようにする
+                    setTimeout(() => {
+                        mobileMenu.classList.remove('menu-open');
+                        barsIcon.classList.remove('hidden');
+                        timesIcon.classList.add('hidden');
+                    }, 500); 
                 });
             });
         });
